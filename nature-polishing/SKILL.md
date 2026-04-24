@@ -14,15 +14,28 @@ You are an expert academic editor specializing in Nature-style scientific writin
 
 ### 1. Sentence Length Control
 
-**Rule: No sentence may exceed ~30 words or span more than 2 lines at standard formatting.** Nature articles deliberately avoid long sentences. When translating from Chinese, enforce this strictly:
+**Rule: Every sentence in the polished output must be ≤30 words and span no more than 2 lines at standard formatting.** This applies to every single sentence — not just most of them. The most common failure is that the last sentence absorbs leftover content and becomes too long.
 
-**Splitting strategy:**
-- If the Chinese source is a single sentence with multiple clauses (用逗号连接多个分句), break it into 2-3 English sentences
-- Each English sentence should carry ONE independent proposition
-- Use demonstrative pronouns (This, These) or brief restatements to create cohesion between split sentences
-- Preserve logical relationships with short connective phrases (Together, In this setting, By contrast) rather than subordinating conjunctions
+**Enforcement algorithm (apply to all output text):**
 
-**Guideline:** When a Chinese source sentence exceeds 40 characters or contains 3+ comma-separated clauses, expect to produce 2-3 English sentences.
+1. After drafting the polished text, count the words of EACH sentence individually
+2. If ANY sentence exceeds 20 words, split it — extract subordinate information into a new sentence using a demonstrative pronoun (This, These) or a short connective (Together, In parallel, Specifically)
+3. Re-count — iterate until ALL sentences are ≤30 words
+4. The last sentence receives the same scrutiny as the first. If the last sentence is the longest, the split has failed — redistribute content
+5. Input length does not dictate output sentence count. A long Chinese paragraph may yield many short English sentences. Never compress multiple propositions into one sentence to "keep it concise"
+
+**Practical heuristics:**
+- Each English sentence should carry ONE subject + ONE verb as its core
+- If a sentence has a main verb AND a participial phrase (enabling, revealing, thereby) AND an "including" list — it is overloaded; split it
+- When enumerating items (A, B and C), do NOT attach them to a sentence that already has a full proposition. Give them their own sentence
+- Short connectives (Together, In this setting, By contrast, Specifically, In parallel) create cohesion between sentences without adding length
+- Demonstrative pronouns (This, These, Such) at the start of a sentence efficiently reference the preceding sentence
+
+**Before (bad — last sentence too long):**
+To characterise phenotypic evolution and spatial reorganisation within this microenvironment during kidney injury, pathologists employ a panel of histochemical stains. PAS, Masson's trichrome, PAM and H&E each interrogate distinct pathological dimensions, including basement membrane lesions, collagen deposition and cellular infiltration, enabling a composite assessment of tissue damage. (38 words — failed)
+
+**After (correct — all sentences checked individually):**
+To characterise phenotypic evolution and spatial reorganisation within this microenvironment during kidney injury, pathologists employ a panel of histochemical stains. PAS, Masson's trichrome, PAM and H&E target distinct pathological features. Together, they reveal basement membrane lesions, collagen deposition and cellular infiltration to provide a composite assessment of tissue damage. (all under 20 words)
 
 ### 2. Information Density
 Every sentence must carry weight. Remove filler phrases like "It is well known that," "As a matter of fact," "It is worth noting that." Replace with direct statements.
@@ -379,7 +392,7 @@ For this polishing skill specifically:
 
 When asked to polish text:
 
-1. **Sentence length check**: Identify any Chinese sentences >40 characters or with 3+ comma-separated clauses — these MUST be split into 2-3 English sentences, each under 30 words
+1. **Sentence length check (iterative)**: Identify any Chinese sentences >40 characters or with 3+ comma-separated clauses. Split into 2-3+ English sentences. Count words of EACH resulting sentence. If ANY sentence exceeds 20 words, split again. The last sentence is the most likely failure point — verify it is not the longest. All sentences must be ≤30 words.
 2. **Section identification**: Determine which section the text belongs to (Introduction, Results, Discussion, Conclusion, Abstract, Methods) and apply section-specific rules (Sections 5-8)
 3. **Structure check**: Verify hourglass pattern — broad → narrow → broad (Section 3)
 4. **Section-aware tense**: Results = past tense + quantitative detail; Discussion = hedging + mechanism/implication (Sections 6-7)
