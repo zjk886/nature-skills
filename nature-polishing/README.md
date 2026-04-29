@@ -1,70 +1,174 @@
-# Nature-Style Academic Polishing Skill
+# nature-polishing skill
 
-一个基于 Nature 正刊论文写作风格分析与科学英语写作课程构建的学术润色 skill，可将中文学术草稿转化为符合 Nature 期刊标准的英文学术文本。
+An academic writing skill built from close reading of five *Nature* (s41586, 2026) papers
+and a graduate-level scientific English writing course. Transforms draft academic text —
+including Chinese-to-English translation — into prose that matches *Nature* journal
+standards in sentence structure, hedging calibration, vocabulary, and logical flow.
 
-## 数据来源
+---
 
-从本目录下 18 篇 Nature 正刊论文（s41586 系列，2026 年发表）中抽样精读 5 篇，并系统学习一门科学英语写作课程，提取以下风格特征与写作规范：
-
-- 沙漏结构（Hourglass：broad → narrow → broad）
-- 写作顺序 ≠ 阅读顺序（作者逻辑 vs 读者逻辑）
-- Introduction 的 4 个必答问题与 2 个禁区
-- Results（过去时 + 定量）与 Discussion（hedging + 机制）的语言区分
-- Methods 写作的 7 个禁用模糊短语
-- 标题"好奇心 + 可信度"原则（≤75 字符）
-- 摘要 mini-paper 五步模板
-- 结论三段式（贡献 → 证据 → 边界）
-- 四种引用类型（支撑 / 借用 / 对比 / 复用）
-- 一手来源与二手来源的引用原则
-- 模糊语（hedging）的三级校准
-- 弱动词替换策略
-- 英式拼写、冠词使用、缩写规范
-- 过度声明（overclaim）检测
-- 校订自查清单
-- AI 使用红绿灯模型
-
-## 核心能力
-
-| 能力 | 说明 |
-|------|------|
-| 长句拆分 | 中文 >40 字符或多逗号句子自动拆为 2-3 个英文短句，每句 ≤30 词 |
-| 分区润色 | 根据段落所属章节（Intro / Results / Discussion / Methods / Abstract）自动应用对应规则 |
-| 时态控制 | Results = 过去时 + 定量细节；Discussion = hedging + 因果/泛化/局限 |
-| 词汇升级 | 弱动词 / 模糊形容词替换为精确学术用语 |
-| 模糊语校准 | 按证据强度匹配用词（demonstrate → suggest → may reflect） |
-| 结构重组 | 摘要 / 引言 / 结论按 Nature 标准模板对齐 |
-| 标题优化 | 去除技术术语，保证可检索性，控制长度 |
-| 引用规范 | 检查一手 / 二手来源，避免 straw man 式贬低前人工作 |
-| 过度声明检测 | 标记绝对化措辞、因果跳跃、范围扩张 |
-| 即贴即用 | 输出为纯文本，可直接复制粘贴到论文草稿中 |
-
-## 使用方法
-
-让 Claude 执行以下任意一种指令即可触发：
-
-- "用 nature-polishing 润色这段文字"
-- "把这段话改成 Nature 风格"
-- "polish this in Nature style"
-
-## 文件结构
+## File structure
 
 ```
-.claude/skills/nature-polishing/
-  SKILL.md          — skill 指令定义（25 条规则 + 12 步工作流）
-  README.md         — 使用说明
+nature-polishing/
+├── SKILL.md      ← 25 polishing rules + 12-step workflow (loaded by Claude automatically)
+└── README.md     ← this file
 ```
 
-## 适用场景
-<img width="1730" height="924" alt="image" src="https://github.com/user-attachments/assets/2137d663-8e8e-426c-9fa9-210302022443" />
+---
 
-- 中文学术草稿的英文翻译与润色
-- 已有英文文本的 Nature 风格改写
-- 摘要、引言、结论、Results、Discussion、Methods 段落的结构优化
-- 论文返修时的语言升级
-- 标题与摘要的重新起草
+## When to use
 
-## 不适用场景
+- Polishing Chinese-language academic drafts into publishable English
+- Refining existing English text to match *Nature*-tier style
+- Structural revision of Abstract, Introduction, Results, Discussion, Conclusion, or Methods
+- Title and abstract redrafting before submission
+- Language revision during peer-review response
 
-- 完整论文从零起草（应参考具体期刊的 author guidelines）
-- 非学术类写作（科普、博客、新闻报道等）
-- 需要保留原文特定术语或作者个人风格的情况
+## When NOT to use
+
+- Drafting an entire paper from scratch (follow the target journal's author guidelines instead)
+- Non-academic writing: science communication, blog posts, grant lay summaries
+- Cases where a specific institutional voice or house style must be preserved
+
+---
+
+## Knowledge base
+
+Derived from systematic analysis of:
+
+| Source | Details |
+|--------|---------|
+| *Nature* papers | 5 papers sampled from 18 published in the s41586 series, 2026 |
+| Writing course | Graduate scientific English writing curriculum |
+
+Rules extracted cover sentence architecture, section-specific conventions, citation
+practice, British English, *Nature* house style, overclaim detection, and AI usage ethics.
+
+---
+
+## Core capabilities
+
+| Capability | What it does |
+|------------|-------------|
+| **Sentence length enforcement** | Splits any sentence exceeding 20–30 words; the last sentence in a paragraph receives the same scrutiny as the first |
+| **Section-aware polishing** | Applies different rules depending on which section the text belongs to: Introduction, Results, Discussion, Methods, Abstract, or Conclusion |
+| **Tense control** | Results → past tense + quantitative detail; Discussion → hedging verbs + mechanism/implication language |
+| **Hedging calibration** | Matches claim strength to evidence level: *demonstrate* → *suggest* → *may reflect* |
+| **Vocabulary upgrade** | Replaces weak or vague verbs and adjectives with precise scientific alternatives |
+| **Structural realignment** | Aligns paragraphs to the hourglass pattern (broad → narrow → broad) |
+| **Title optimisation** | Removes jargon, improves searchability, enforces ≤75-character limit |
+| **Citation audit** | Checks attribution type (support / borrow / contrast / reproduce) and primary vs. secondary source integrity |
+| **Overclaim detection** | Flags absolute claims, unwarranted causal language, scope expansion, and unverified "first" claims |
+| **Copy-ready output** | Returns plain, unformatted text ready to paste directly into a manuscript |
+
+---
+
+## The 25 rules (summary)
+
+### Sentence architecture
+
+1. **Sentence length ≤ 30 words** — count every sentence individually; split anything over 20 words; the last sentence of a paragraph is the most common failure point
+2. **Cohesion variety** — rotate between subject restatement, adverbial connectives, pronoun reference, definite article + noun, demonstratives + noun, participle openers, *such* modifiers, and zero-connective juxtaposition; no more than one demonstrative (*This/These/Such*) per paragraph
+3. **One proposition per sentence** — never compress a main clause + participial phrase + enumeration list into a single sentence
+4. **Information density** — every sentence must carry weight; remove filler (*It is well known that*, *It is worth noting that*, *As a matter of fact*)
+5. **Active voice** — prefer *We show that* over *It was shown that*; front-load the main point; conditions and qualifiers follow
+
+### Paper structure
+
+6. **Hourglass pattern** — Introduction: broad context → specific gap → *Here we…*; Discussion/Conclusion: specific findings → broader implications
+7. **Writing order ≠ reading order** — draft in the order: Results → Introduction/Conclusion → Title → Authors → Discussion → Methods → Abstract
+8. **Introduction: four questions** — (i) what is known, (ii) what remains unknown, (iii) what specific question is posed, (iv) how the author addresses it; *do not* summarise results or conclusions in the Introduction
+9. **Results: data summary only** — past tense, quantitative detail, objects and conditions; do not interpret mechanism (belongs in Discussion)
+10. **Discussion: interpret, not repeat** — use hedging (*may*, *suggests*, *could*), causal language (*owing to*, *likely reflects*), generalisation (*may facilitate*), and limitation statements (*may fail when*)
+11. **Methods: reproducibility standard** — another group must be able to replicate from the Methods section alone; seven forbidden vague phrases: *under standard conditions*, *using routine methods*, *data were analyzed statistically*, *differences were significant*, *samples were randomly assigned*, *the method was validated*, *analyzed with standard software*
+
+### Hedging and vocabulary
+
+12. **Hedging three-level calibration**
+
+    | Evidence level | Verbs to use |
+    |---------------|-------------|
+    | Experimental demonstration | demonstrate, show, establish, reveal, identify |
+    | Consistent with interpretation | suggest, indicate, are consistent with, support the view that |
+    | Hypothesis or extrapolation | may reflect, probably, could, seem to, appears to |
+
+13. **Verb upgrade** — replace *look at* → examine; *find out* → determine; *use* → employ; *help* → facilitate; *cause* → induce/trigger/drive; *change* → modulate/alter; *get* → obtain/achieve
+
+14. **Sentence pattern templates**
+    ```
+    [Agent] [strong verb] that [finding], [participial phrase elaborating mechanism].
+    Although [prior work/assumption], [gap/limitation].
+    Here we [verb] that [key finding].
+    Using [method], we [action verb] that [result].
+    ```
+
+### Document-level conventions
+
+15. **Title** — avoid technical jargon; include searchable keywords; *curiosity + credibility*; ≤ 75 characters including spaces
+16. **Abstract framework** — five-move mini-paper: context/problem → gap/objective → approach → key results with numbers → implication/application; ≤ 200 words
+17. **Conclusion structure** — three parts: (i) restate central contribution (1 sentence), (ii) summarise key evidence (1–2 sentences), (iii) implication + scope boundary; never introduce new data
+
+### Citation integrity
+
+18. **Four citation types** — Support, Borrow, Contrast/Positioning, Reproduce; each requires explicit attribution
+19. **Primary vs. secondary sources** — cite the source you personally read and verified; if you only encountered Paper A through Paper B's summary, cite Paper B
+20. **Straw-man prohibition** — do not portray prior work as generically limited to highlight your own; frame comparisons with fair, specific language
+
+### House style
+
+21. **British English** — signalling, colour, analyse, programme, modelling, behaviour, centre, defence
+22. **Article usage** — first mention: *a/an*; subsequent: *the*; generic plural: no article; unique entity: *the*; abstract nouns in general context: no article
+23. **Abbreviations** — define on first use (*ethylene response factors (ERFVIIs)*); exception: DNA, RNA, ATP, pH; italic for variables and gene names; bold for vectors
+24. **Numbers and units** — numerals for measurements; space between number and unit (*25 cm²*); en-dash for ranges (*0.01–1,000 years*)
+
+### Ethics
+
+25. **AI usage traffic-light model**
+
+    | Signal | Permitted |
+    |--------|-----------|
+    | Green | Grammar, clarity, tone improvement; alternative phrasings; translation with verification |
+    | Yellow | Translation (verify terminology and causality); wording support for methods/results |
+    | Red | AI-generated references, data, or claims without checking; drafting core arguments; uploading unpublished data to public models |
+
+---
+
+## 12-step polishing workflow
+
+1. **Sentence length check (iterative)** — identify sentences > 20 words or Chinese sentences > 40 characters with 3+ clauses; split; count again; verify the last sentence
+2. **Section identification** — determine Introduction / Results / Discussion / Conclusion / Abstract / Methods and load section-specific rules
+3. **Hourglass check** — verify broad → narrow → broad flow
+4. **Tense audit** — Results: past tense + quantitative detail; Discussion: hedging + mechanism
+5. **Sentence-level edit** — strengthen verbs, remove filler, recalibrate hedging
+6. **Vocabulary upgrade** — replace generic terms with precise scientific alternatives
+7. **Title / Conclusion / Abstract template check** — apply section-specific structure
+8. **Citation audit** — verify attribution type and primary vs. secondary source
+9. **British English + articles + abbreviations** — apply house style conventions
+10. **Overclaim detection** — flag absolutes, unwarranted causation, scope expansion, unverified "first" claims
+11. **Proofreading pass** — subject-verb agreement, typos, figure references, citation completeness
+12. **Output** — plain unformatted text ready to paste, plus a 3–5-bullet summary of changes
+
+---
+
+## Output format
+
+The skill always returns:
+
+1. **Polished text as plain prose** — not in a code block or blockquote; copy-paste ready
+2. **Change summary** — 3–5 bullet points describing what was altered and why
+3. **Structural note** — if sentence splitting or section realignment was performed, a brief explanation is provided
+
+---
+
+## Trigger phrases
+
+Any of the following will activate the skill:
+
+```
+"Polish this in Nature style"
+"Rewrite this paragraph for a Nature paper"
+"Translate and polish this draft"
+"Check the hedging and sentence length"
+"Make this sound like Nature"
+```
