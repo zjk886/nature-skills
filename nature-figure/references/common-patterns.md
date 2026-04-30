@@ -105,18 +105,28 @@ for bar_container, hatch in zip(grouped_bars, hatches):
 
 ---
 
-## Pattern 7: Semantic color mapping
+## Pattern 7: Semantic or family color mapping
 
 Always map colors consistently across all panels in a figure:
 
 ```python
 method_colors = {
-    'Ours':        '#0F4D92',   # blue_main — hero
-    'Baseline A':  '#8BCF8B',   # green_3
-    'Baseline B':  '#E9A6A1',   # red_2
-    'Reference':   '#CFCECE',   # neutral_light
+    'ResNet1d18': '#484878',   # baseline_dark
+    'ResNet1d34': '#7884B4',   # baseline_mid
+    'ECGFounder': '#B4C0E4',   # baseline_soft
+    'CSFM-Tiny':  '#E4E4F0',   # ours_tiny
+    'CSFM-Base':  '#E4CCD8',   # ours_base
+    'CSFM-Large': '#F0C0CC',   # ours_large
 }
 colors = [method_colors[m] for m in methods]
+```
+
+Prefer coherent hue families over alternating saturated blue/green/red just because categories differ.
+Green and red should usually be reserved for **directional annotations**, not primary series identity:
+
+```python
+ax.scatter(x_gain, y_gain, marker='^', color='#2E9E44', s=90, zorder=6)  # improvement
+ax.scatter(x_drop, y_drop, marker='v', color='#E53935', s=90, zorder=6)  # degradation
 ```
 
 ---
@@ -206,10 +216,134 @@ ax.set_xticklabels(datasets)
 
 ---
 
+## Pattern 12: Schematic hero panel with supporting quant row
+
+Use when one mechanism or fabrication story needs to lead, with 2–4 smaller evidence plots below.
+
+```python
+fig = plt.figure(figsize=(7.2, 6.2))
+gs = fig.add_gridspec(
+    2, 4,
+    height_ratios=[2.2, 1.0],
+    hspace=0.18, wspace=0.28,
+)
+
+ax_top = fig.add_subplot(gs[0, :])    # hero schematic
+ax_b = fig.add_subplot(gs[1, 0])
+ax_c = fig.add_subplot(gs[1, 1:3])
+ax_d = fig.add_subplot(gs[1, 3])
+
+# top panel should carry the main palette and the main visual narrative
+```
+
+Rules:
+
+- Allocate `45–60%` of total height to the hero schematic.
+- Reuse softened versions of the same colors in the lower plots.
+- Keep support plots quieter than the hero panel.
+
+---
+
+## Pattern 13: Dark image plate with repeated views
+
+Use for microscopy, volume rendering, or fluorescence-heavy panels.
+
+```python
+fig = plt.figure(figsize=(7.2, 6.5))
+gs = fig.add_gridspec(3, 5, hspace=0.08, wspace=0.04)
+
+for r in range(3):
+    for c in range(5):
+        ax = fig.add_subplot(gs[r, c])
+        ax.set_facecolor('black')
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+```
+
+Rules:
+
+- Use black only within the image plate cells.
+- Put channel labels, scale bars and small crop guides directly on the plate.
+- Keep crop geometry and scale-bar placement consistent across the grid.
+
+---
+
+## Pattern 14: Clinical triptych
+
+Use for outcome-over-time figures that combine trajectories, effect sizes, and summary proportions.
+
+```python
+fig = plt.figure(figsize=(7.2, 6.8))
+gs = fig.add_gridspec(
+    3, 3,
+    height_ratios=[1.0, 1.35, 0.8],
+    hspace=0.28, wspace=0.32,
+)
+
+axes_top = [fig.add_subplot(gs[0, i]) for i in range(3)]
+axes_mid = [fig.add_subplot(gs[1, i]) for i in range(3)]
+axes_bot = [fig.add_subplot(gs[2, i]) for i in range(3)]
+
+# Put one shared legend strip above axes_top rather than repeating legends.
+```
+
+Rules:
+
+- Keep the three columns semantically parallel.
+- Use a dashed vertical reference line in the forest-plot row.
+- Group shading in the forest-plot row should be pale and subordinate.
+
+---
+
+## Pattern 15: Asymmetric hero panel
+
+Use when one panel is conceptually central and should dominate.
+
+```python
+fig = plt.figure(figsize=(7.2, 5.8))
+gs = fig.add_gridspec(3, 4, hspace=0.25, wspace=0.28)
+
+ax_a = fig.add_subplot(gs[0, :2])
+ax_b = fig.add_subplot(gs[0, 2])
+ax_c = fig.add_subplot(gs[1, :2])
+ax_d = fig.add_subplot(gs[1, 2])
+ax_e = fig.add_subplot(gs[:, 3])      # hero panel spans all rows
+ax_f = fig.add_subplot(gs[2, :2])
+```
+
+Rule: do not normalize every subplot to the same size if the science does not have equal importance.
+
+---
+
+## Pattern 16: Direct labels inside filled regions
+
+Use when the same categorical structure repeats and a legend would become too large.
+
+```python
+for x_text, y_text, text, color in label_specs:
+    ax.text(
+        x_text, y_text, text,
+        color=color,
+        ha='center', va='center',
+        fontsize=9, fontweight='bold',
+    )
+```
+
+Rules:
+
+- Keep labels inside stable, visually large regions.
+- Use a small white or black stroke if the fill varies strongly underneath.
+- Prefer direct labels over a mega-legend for repeated stacked-area or phase diagrams.
+
+---
+
 ## Related files
 
 - [skill.md](../skill.md) — When to use this skill
 - [api.md](api.md) — Helper function signatures and PALETTE
 - [design-theory.md](design-theory.md) — Rationale behind every pattern above
+- [nature-2026-observations.md](nature-2026-observations.md) — Real Nature page archetypes behind these patterns
 - [tutorials.md](tutorials.md) — End-to-end walkthroughs
 - [chart-types.md](chart-types.md) — Radar, 3D, scatter patterns

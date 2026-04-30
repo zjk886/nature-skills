@@ -137,6 +137,56 @@ PALETTE = {
 `blue_main` = your method / hero series. `green_3` = positive variants. `red_strong` = baselines.
 `neutral_light` = reference / background. Apply this consistently across every panel in the figure.
 
+**Unified palette policy (recommended for recent Nature Machine Intelligence-style layouts)**  
+Do not maximize hue separation by default. In dense multi-panel figures, prefer **one coherent baseline family**
+and **one coherent hero family**, then reserve green/red for delta markers or genuinely signed semantics.
+
+```python
+PALETTE_NMI_PASTEL = {
+    # Baseline / comparison family (cool blue-grey)
+    'baseline_dark': '#484878',
+    'baseline_mid':  '#7884B4',
+    'baseline_soft': '#B4C0E4',
+
+    # Hero / proposed family (lilac → rose)
+    'ours_tiny':  '#E4E4F0',
+    'ours_base':  '#E4CCD8',
+    'ours_large': '#F0C0CC',
+
+    # Background blocks for overview / concept panels
+    'bg_lilac': '#E0E0F0',
+    'bg_aqua':  '#E0F0F0',
+    'bg_peach': '#F0E0D0',
+
+    # Neutral support
+    'neutral_light': '#D8D8D8',
+    'neutral_mid':   '#A8A8A8',
+    'neutral_dark':  '#606060',
+
+    # Accent only for directional annotations
+    'delta_up':   '#2E9E44',
+    'delta_down': '#E53935',
+}
+
+DEFAULT_COLORS_NMI_PASTEL = [
+    PALETTE_NMI_PASTEL['baseline_dark'],
+    PALETTE_NMI_PASTEL['baseline_mid'],
+    PALETTE_NMI_PASTEL['baseline_soft'],
+    PALETTE_NMI_PASTEL['ours_tiny'],
+    PALETTE_NMI_PASTEL['ours_base'],
+    PALETTE_NMI_PASTEL['ours_large'],
+]
+```
+
+Use `DEFAULT_COLORS_NMI_PASTEL` when:
+- comparing related model families such as `Tiny / Base / Large`
+- building 1-page result atlases where multiple panels must feel visually unified
+- matching low-saturation editorial styling rather than maximum category separation
+
+**Practical rule**  
+The same method family keeps the same hue family in every panel. Do not recolor a model from blue-grey in panel `a`
+to green in panel `d` just because that panel needs more contrast.
+
 ---
 
 ## Supported chart types
@@ -280,7 +330,9 @@ def luminance_text_color(hex_color):
 - [ ] Primary output is **SVG** (`bbox_inches='tight'`)
 - [ ] Right and top spines off; `legend.frameon = False`
 - [ ] Font size ≥ 12 base (24 for large bar panels)
-- [ ] Colors from semantic PALETTE (blue = hero, red = baseline, neutral = reference)
+- [ ] Colors come from one coherent palette system: either semantic `PALETTE` or unified `PALETTE_NMI_PASTEL`
+- [ ] Related model sizes / variants share a hue family; do not assign unrelated saturated colors to siblings
+- [ ] Green / red reserved for gains, drops, thresholds, or truly signed semantics
 - [ ] Y-limits tightened to data range
 - [ ] Multi-panel figures: each panel answers a **different** question (anti-redundancy checklist passed)
 - [ ] Panel labels (`a`, `b`, `c`) in bold 20–22 pt via `transAxes`

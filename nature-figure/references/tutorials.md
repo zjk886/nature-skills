@@ -8,6 +8,7 @@ All examples use helpers from [api.md](api.md) and patterns from [common-pattern
 ## Tutorial 1: Grouped bar chart (multi-metric comparison)
 
 **Goal**: Several methods compared across multiple metrics. Legend in a dedicated panel.
+When methods belong to related families, use one coherent baseline family plus one coherent hero family.
 
 ```python
 import os
@@ -25,13 +26,13 @@ plt.rcParams['axes.spines.top'] = False
 plt.rcParams['axes.linewidth'] = 3
 
 # --- Data ---
-methods = ['Ours', 'Baseline A', 'Baseline B', 'Baseline C']
-colors  = ['#0F4D92', '#8BCF8B', '#E9A6A1', '#F6CFCB']
+methods = ['ResNet1d18', 'ResNet1d34', 'ECGFounder', 'CSFM-Tiny', 'CSFM-Base', 'CSFM-Large']
+colors  = ['#484878', '#7884B4', '#B4C0E4', '#E4E4F0', '#E4CCD8', '#F0C0CC']
 metrics = ['Metric 1', 'Metric 2', 'Metric 3']
 mean = {
-    'Metric 1': np.array([0.88, 0.81, 0.79, 0.71]),
-    'Metric 2': np.array([0.77, 0.66, 0.62, 0.52]),
-    'Metric 3': np.array([0.55, 0.48, 0.44, 0.39]),
+    'Metric 1': np.array([0.81, 0.83, 0.86, 0.89, 0.91, 0.92]),
+    'Metric 2': np.array([0.63, 0.67, 0.71, 0.74, 0.77, 0.79]),
+    'Metric 3': np.array([0.41, 0.45, 0.49, 0.53, 0.56, 0.58]),
 }
 std  = {k: v * 0.03 for k, v in mean.items()}  # placeholder
 
@@ -132,15 +133,23 @@ plt.rcParams['axes.spines.right'] = False
 plt.rcParams['axes.spines.top'] = False
 plt.rcParams['axes.linewidth'] = 2
 
-methods = ['Model A', 'Model B', 'Model C']
-colors  = ['#0F4D92', '#8BCF8B', '#B64342']
+methods = ['Baseline', 'CSFM-Tiny', 'CSFM-Base', 'CSFM-Large']
+colors  = ['#7884B4', '#E4E4F0', '#E4CCD8', '#F0C0CC']
 x = np.arange(0, 100, 5)
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
 for panel_idx, (ax, panel_name) in enumerate(zip(axes[:2], ['Training', 'Validation'])):
     for method, color in zip(methods, colors):
-        y = 0.5 + 0.4 * (1 - np.exp(-x / 30)) + np.random.randn(len(x)) * 0.01
+        y = 0.48 + 0.42 * (1 - np.exp(-x / 30)) + np.random.randn(len(x)) * 0.01
+        if method == 'Baseline':
+            y -= 0.03
+        elif method == 'CSFM-Tiny':
+            y += 0.00
+        elif method == 'CSFM-Base':
+            y += 0.02
+        elif method == 'CSFM-Large':
+            y += 0.03
         ax.plot(x, y, color=color, lw=2.5, marker='o', markersize=6, label=method)
     ax.set_title(panel_name, fontsize=18)
     ax.set_xlabel('Epoch', fontsize=16)

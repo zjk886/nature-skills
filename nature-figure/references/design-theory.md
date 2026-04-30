@@ -17,12 +17,17 @@ Derived from scripts in the [figures4papers](https://github.com/ChenLiu-1996/fig
 ### Font size hierarchy
 | Context | font.size | axes.linewidth |
 |---------|-----------|---------------|
+| Journal-final dense multi-panel figure at publication width | 7–9 | 0.8–1.2 |
 | Large comparison bar panels (figsize > 28in wide) | 24 | 3 |
 | Compact subfigures / analytic plots | 15–16 | 2 |
 | Axis labels on large panels | 32–54 (override per-label) | — |
 | In-bar annotations | 32–36 | — |
 | Legend text on large panels | 28–38 | — |
 | Tick labels | 20–36 | — |
+
+When targeting the final dimensions of a two-column `Nature` figure page, start smaller than
+slide-sized preview figures. The sampled 2026 papers routinely landed in the `7–9 pt` final-text
+regime for dense composites.
 
 ---
 
@@ -42,6 +47,7 @@ plt.rcParams['legend.frameon'] = False      # frameless legends everywhere
 ## 3) Color Palette
 
 Semantic: blue = proposed method, green = positive variants, red/pink = baselines, neutral = reference/background.
+For dense multi-panel figures, however, **family consistency beats maximal hue separation**.
 
 ```python
 PALETTE = {
@@ -82,6 +88,50 @@ DEFAULT_COLOR_ORDER = [
 ]
 ```
 
+### Unified-family rule (recommended for NMI-style pages)
+
+Publication figures should read like **one figure**, not six unrelated plots. Prefer one cool family for
+baselines and one lilac/rose family for the proposed method line.
+
+```python
+PALETTE_NMI_PASTEL = {
+    "baseline_dark": "#484878",
+    "baseline_mid":  "#7884B4",
+    "baseline_soft": "#B4C0E4",
+    "ours_tiny":  "#E4E4F0",
+    "ours_base":  "#E4CCD8",
+    "ours_large": "#F0C0CC",
+    "delta_up":   "#2E9E44",
+    "delta_down": "#E53935",
+}
+
+DEFAULT_COLOR_ORDER_NMI_PASTEL = [
+    "#484878",   # baseline_dark
+    "#7884B4",   # baseline_mid
+    "#B4C0E4",   # baseline_soft
+    "#E4E4F0",   # ours_tiny
+    "#E4CCD8",   # ours_base
+    "#F0C0CC",   # ours_large
+]
+```
+
+Rules:
+1. Keep related baselines in one cool family.
+2. Keep `Tiny / Base / Large` or sibling variants in one hero family.
+3. Reserve green/red for arrows, gains, drops, thresholds, or signed biological direction.
+4. Never remap the same method to a different hue family in another panel.
+5. If in doubt, reduce saturation before adding more categories.
+
+### Modality-specific palette discipline from sampled 2026 Nature figures
+
+- **Imaging plates**: grayscale context + 1–2 fluorescent accent channels on black.
+- **Schematic/material pages**: derive the palette from the physical objects in the schematic,
+  then reuse softened versions of those colors in the support plots.
+- **Clinical composites**: dark baseline/reference series, restrained warm/cool follow-up hues,
+  pale background bands in forest plots.
+- **Genomics / systems pages**: neutral grey scaffolds plus a small number of biologically
+  meaningful highlight families, often one red and one blue.
+
 ### Ablation alpha encoding
 When ablating components of one method, use a **single color with varying alpha**:
 ```python
@@ -98,6 +148,7 @@ colors = [(color[0], color[1], color[2], a) for a in alphas]
 ### Figure sizes
 | Figure type | Typical figsize |
 |-------------|----------------|
+| Journal-width composite page / asymmetric multi-panel | (7.0–7.4, 5.5–7.8) |
 | Multi-metric bar (3–4 metrics + legend) | (28–45, 6–12) |
 | Compact single bar | (9–16, 5–8) |
 | Trend / line multi-panel | (14, 4) or (9, 8) |
@@ -118,6 +169,32 @@ ax_legend.set_axis_off()
 ### Dynamic y-axis scaling
 Never use fixed 0–100 when values sit in a narrow band.
 Tighten limits to data range: e.g., `ax.set_ylim([data.min() - margin, data.max() + margin])`.
+
+### Nature page archetypes from sampled 2026 papers
+
+`Nature` figures were not uniformly dashboard-like. They repeatedly used a few strong page
+archetypes:
+
+| Archetype | Layout signal | Practical rule |
+|-----------|---------------|----------------|
+| Schematic-led composite | One wide story panel with smaller quant panels below | Give the schematic the visual hierarchy; supporting plots should validate, not compete |
+| Dark image plate | Repeated black tiles with fluorescent channels | Use black only inside the image plate region; keep scale bars, gutters, and channel labels high-contrast |
+| Clinical triptych | Top longitudinal row, middle forest row, bottom summary row | Reuse the same column logic across outcomes and put the shared legend above the row |
+| Asymmetric hero layout | One dominant circular/schematic panel plus small support plots | Let one panel span multiple grid cells; equal panel sizes are not required |
+
+### Panel labels and gutters
+
+- Use small bold lowercase panel letters near the top-left edge.
+- Keep gutters tight but real; increase spacing when dark and light modalities touch.
+- Leave extra bottom clearance when a dense caption will sit immediately below the figure.
+- Avoid decorative panel boxes. Alignment and whitespace should carry the structure.
+
+### Legend economy and direct labelling
+
+- Use direct labels when regions, channels, or line identities are spatially stable.
+- Prefer one shared legend strip above a row rather than repeating legends inside several axes.
+- Dense categorical area plots often read better with embedded text than with a detached legend.
+- If a legend exists, it should usually be frameless and visually quieter than the data.
 
 ### X-tick suppression
 When bars represent methods and the legend already names them:
@@ -190,6 +267,7 @@ error_kw = {
 
 - Line width: 2–3pt with controlled alpha.
 - Marker size: 8–12pt circles.
+- For clinical or longitudinal triptychs, place one shared legend above the row rather than repeating it per axis.
 - Fading alpha for temporal progression:
   ```python
   from matplotlib.collections import LineCollection
@@ -346,8 +424,11 @@ To match Nature publication standards:
 - [ ] **MANDATORY first lines**: `font.family='sans-serif'`, `font.sans-serif=['Arial','DejaVu Sans','Liberation Sans']`, `svg.fonttype='none'`
 - [ ] **Save as SVG** (primary). PNG dpi=300 as optional raster preview.
 - [ ] Top and right spines off; frameless legend
+- [ ] Figure architecture chosen intentionally: grid, schematic-led composite, image plate, or asymmetric hero layout
 - [ ] Font size ≥ 16 base; 24 for large bar panels; 32–54 for axis labels on large panels
 - [ ] Colors from blue-green-red-neutral semantic palette
+- [ ] Black background used only for imaging plates, not for ordinary plots
+- [ ] Legends omitted or shared when direct labels or one legend strip read better
 - [ ] Y-limits tightened to data range (not 0–100 when values are 80–95)
 - [ ] X-ticks hidden when methods are named in legend
 - [ ] Legend in dedicated panel or `frameon=False`

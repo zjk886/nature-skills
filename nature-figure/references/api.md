@@ -36,7 +36,73 @@ DEFAULT_COLORS = [
     PALETTE["violet"],
     PALETTE["neutral_light"],
 ]
+
+PALETTE_NMI_PASTEL = {
+    "baseline_dark": "#484878",
+    "baseline_mid":  "#7884B4",
+    "baseline_soft": "#B4C0E4",
+    "ours_tiny":  "#E4E4F0",
+    "ours_base":  "#E4CCD8",
+    "ours_large": "#F0C0CC",
+    "bg_lilac": "#E0E0F0",
+    "bg_aqua":  "#E0F0F0",
+    "bg_peach": "#F0E0D0",
+    "neutral_light": "#D8D8D8",
+    "neutral_mid":   "#A8A8A8",
+    "neutral_dark":  "#606060",
+    "delta_up":   "#2E9E44",
+    "delta_down": "#E53935",
+}
+
+DEFAULT_COLORS_NMI_PASTEL = [
+    PALETTE_NMI_PASTEL["baseline_dark"],
+    PALETTE_NMI_PASTEL["baseline_mid"],
+    PALETTE_NMI_PASTEL["baseline_soft"],
+    PALETTE_NMI_PASTEL["ours_tiny"],
+    PALETTE_NMI_PASTEL["ours_base"],
+    PALETTE_NMI_PASTEL["ours_large"],
+]
+
+PALETTE_NATURE_IMAGING = {
+    "bg": "#000000",
+    "context": "#B8B8B8",
+    "cyan": "#22D7E6",
+    "magenta": "#FF2AD4",
+    "white": "#FFFFFF",
+}
+
+PALETTE_NATURE_MATERIAL = {
+    "aqua": "#77D7D1",
+    "teal": "#33B5A5",
+    "lilac": "#B9A7E8",
+    "violet": "#7C6CCF",
+    "callout_red": "#E53935",
+    "neutral": "#D9D9D9",
+}
+
+PALETTE_NATURE_CLINICAL = {
+    "baseline": "#272727",
+    "week6": "#E28E2C",
+    "week13": "#D24B40",
+    "week26": "#5B8FD6",
+    "year1": "#7BAA5B",
+    "year2": "#C45AD6",
+    "group_band": "#F2E6D9",
+}
+
+PALETTE_NATURE_GENOMICS = {
+    "neutral_light": "#D8D8D8",
+    "neutral_mid": "#8F8F8F",
+    "wave1": "#D9544D",
+    "wave2": "#5B7FCA",
+    "wave3": "#B89BD9",
+    "outline": "#4D4D4D",
+}
 ```
+
+Use `DEFAULT_COLORS` when color itself carries explicit semantic meaning (`hero`, `baseline`, `positive variant`).
+Use `DEFAULT_COLORS_NMI_PASTEL` when several compared methods belong to one or two related families and the page
+should feel visually unified.
 
 ---
 
@@ -83,6 +149,7 @@ def apply_publication_style(font_size=16, axes_linewidth=2.5, use_tex=False):
 **Presets:**
 - Large bar panels: `apply_publication_style(font_size=24, axes_linewidth=3)`
 - Compact figures: `apply_publication_style(font_size=15, axes_linewidth=2)`
+- Dense journal-width multi-panels: `apply_publication_style(font_size=8, axes_linewidth=1)`
 - LaTeX labels: `apply_publication_style(use_tex=True)`
 
 ---
@@ -95,6 +162,43 @@ def is_dark(hex_color, threshold=128):
     c = hex_color.lstrip('#')
     r, g, b = int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
     return (0.299*r + 0.587*g + 0.114*b) < threshold
+```
+
+---
+
+## add_panel_label(ax, label, ...)
+
+```python
+def add_panel_label(ax, label, x=-0.06, y=1.02, fontsize=14,
+                    color='black', fontweight='bold'):
+    """Place a Nature-style panel label near the top-left edge."""
+    ax.text(
+        x, y, label,
+        transform=ax.transAxes,
+        fontsize=fontsize,
+        fontweight=fontweight,
+        color=color,
+        ha='left',
+        va='bottom',
+    )
+```
+
+For dark image plates, move the label inside the panel and switch to white:
+`add_panel_label(ax, 'a', x=0.01, y=0.98, color='white')`
+
+---
+
+## style_dark_image_ax(ax, ...)
+
+```python
+def style_dark_image_ax(ax, facecolor='black'):
+    """Prepare an axes for microscopy / rendering plates."""
+    ax.set_facecolor(facecolor)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    return ax
 ```
 
 ---
@@ -116,7 +220,8 @@ def make_grouped_bar(ax, categories, series, labels,
     series     : list[array] — one array per group (each length K)
     labels     : list[str]  — legend label per group
     ylabel     : str
-    colors     : list[str] | None  — defaults to DEFAULT_COLORS
+    colors     : list[str] | None  — defaults to DEFAULT_COLORS; override with
+                                     DEFAULT_COLORS_NMI_PASTEL for unified-family figures
     annotate   : bool  — print value above each bar
     bar_width  : float — total width for all bars in one category
     error_kw   : dict  — passed to ax.bar as error_kw
@@ -192,6 +297,38 @@ def make_trend(ax, x, y_series, labels,
         ax.set_xlabel(xlabel)
     ax.legend()
 ```
+
+---
+
+## make_forest_plot(ax, labels, estimates, ci_low, ci_high, ...)
+
+```python
+def make_forest_plot(ax, labels, estimates, ci_low, ci_high,
+                     colors=None, ref=0.0, xlabel=None, xlim=None,
+                     marker='o', markersize=5, lw=1.5):
+    """
+    Minimal forest plot helper for Nature-style clinical/statistical panels.
+    """
+    import numpy as np
+    y = np.arange(len(labels))[::-1]
+    if colors is None:
+        colors = ['#B64342'] * len(labels)
+    for yi, est, lo, hi, color in zip(y, estimates, ci_low, ci_high, colors):
+        ax.plot([lo, hi], [yi, yi], color=color, lw=lw)
+        ax.plot(est, yi, marker=marker, ms=markersize, color=color)
+    ax.axvline(ref, color='#767676', linestyle='--', linewidth=1.2, alpha=0.8)
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if xlim is not None:
+        ax.set_xlim(xlim)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+```
+
+Use pale `ax.axhspan(...)` bands behind contiguous label groups when you need the
+clinical-triptych look from `Nature`.
 
 ---
 
@@ -287,4 +424,5 @@ def finalize_figure(fig, out_path, formats=None, dpi=300,
   import matplotlib.pyplot as plt
   ```
 - Always `plt.close(fig)` after saving to free memory.
+- For multi-panel figures, prefer one baseline family plus one hero family; reserve green/red for delta cues.
 - When color roles, resolution, or layout are underspecified and would change the figure, confirm with user before finalizing.

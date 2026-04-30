@@ -2,18 +2,25 @@
 name: nature-figure
 description: >-
   Publication-ready matplotlib figures for Nature/high-impact journals and academic papers.
-  Covers bar charts, grouped bars, heatmaps, line/trend plots, radar plots, and multi-panel
-  layouts with Nature-style typography (Arial/sans-serif), semantic color palettes, and
-  PDF/PNG export conventions. Use when creating scientific figures that must match Nature
-  publication standards. Do NOT use for interactive dashboards (Plotly, Bokeh) or
-  Illustrator/Figma-first infographic workflows.
+  Covers bar charts, grouped bars, heatmaps, line/trend plots, forest plots,
+  microscopy-style image panels, schematic + quantitative composites, radar plots, and
+  multi-panel layouts with Nature-style typography (Arial/sans-serif), restrained color
+  systems, and SVG/PDF export conventions. Use when creating scientific figures that must
+  match Nature publication standards. Do NOT use for interactive dashboards (Plotly,
+  Bokeh) or Illustrator/Figma-first infographic workflows.
 ---
 
 # Nature Figure Making Skill
 
 A complete guide for producing publication-quality matplotlib figures matching Nature journal standards.
 Derived from the [figures4papers](https://github.com/ChenLiu-1996/figures4papers) repository
-(papers published in *Nature Machine Intelligence* and top ML venues).
+(papers published in *Nature Machine Intelligence* and top ML venues), then extended with direct
+visual observations from a 2026 `Nature` sample spanning materials science, genomics,
+neuroscience, plant biology and clinical studies.
+
+Color policy: prefer **unified method families across all panels** over maximal hue separation.
+For dense Nature Machine Intelligence-style figure pages, use the low-saturation `NMI pastel`
+family described in `references/api.md` and reserve green/red mainly for gains, drops, and other directional cues.
 
 ## Quick-start: Mandatory rcParams
 
@@ -33,6 +40,16 @@ plt.rcParams['legend.frameon'] = False
 ```
 
 Use `text.usetex = True` only when LaTeX is installed and math-rich labels are required.
+
+## Default operating stance
+
+- Start by classifying the requested figure into one of four archetypes:
+  `quantitative grid`, `schematic-led composite`, `image plate + quant`, or `asymmetric mixed-modality figure`.
+- Prefer one **hero panel** plus subordinate evidence panels over filling the canvas with equal-sized subplots.
+- Keep the background white for plots and diagrams; switch to black only for microscopy / volume-rendering image plates.
+- Prefer direct labels over legends when categories are spatially fixed or the legend would force unnecessary eye travel.
+- Keep one restrained palette per figure: usually one neutral family, one signal family, and one accent family.
+- When the user asks for broad `Nature` style rather than ML/NMI-specific style, read `references/nature-2026-observations.md` before choosing layout.
 
 ## When to load this skill
 
@@ -54,5 +71,6 @@ Use `text.usetex = True` only when LaTeX is installed and math-rich labels are r
 | [references/design-theory.md](references/design-theory.md) | Typography, color theory, layout rationale, export policy |
 | [references/api.md](references/api.md) | PALETTE, helper function signatures, validation rules |
 | [references/common-patterns.md](references/common-patterns.md) | Ultra-wide panels, legend-only axes, print-safe bars |
+| [references/nature-2026-observations.md](references/nature-2026-observations.md) | Real `Nature` page archetypes: schematic-led composites, dark image plates, clinical triptychs, asymmetric hero layouts |
 | [references/tutorials.md](references/tutorials.md) | End-to-end walkthroughs: bars, trends, heatmaps |
 | [references/chart-types.md](references/chart-types.md) | Radar, 3D sphere, fill_between, scatter patterns |
