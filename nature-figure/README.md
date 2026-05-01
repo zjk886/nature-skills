@@ -6,12 +6,36 @@ Derived from production scripts in [figures4papers](https://github.com/ChenLiu-1
 
 ---
 
+## Example output gallery
+
+The images below are simulated data mockups generated with this skill's rules:
+editable SVG-first export, restrained semantic palettes, lowercase panel labels, and
+asymmetric multi-panel information architecture. They are PNG previews for README display;
+production use should still export SVG/PDF from the plotting script.
+
+| Figure | Preview | What the skill demonstrates |
+|--------|---------|-----------------------------|
+| Material design and physical validation | <a href="assets/gallery/fig1-material-mechanism-rich.png"><img src="assets/gallery/fig1-material-mechanism-rich.png" width="260" alt="Material design and physical validation"></a> | Schematic-led composite, SEM-like image panel, rheology, release kinetics, retention map, correlation and endpoint quantification |
+| Spatial retention and uptake | <a href="assets/gallery/fig2-spatial-imaging-rich.png"><img src="assets/gallery/fig2-spatial-imaging-rich.png" width="260" alt="Spatial retention and uptake"></a> | Dark microscopy plate, channel rows, zoom crops, depth profiles, uptake histograms, 3D penetration heatmap and image-derived correlation |
+| In vivo efficacy and tolerability | <a href="assets/gallery/fig3-in-vivo-efficacy-rich.png"><img src="assets/gallery/fig3-in-vivo-efficacy-rich.png" width="260" alt="In vivo efficacy and tolerability"></a> | Experimental timeline, longitudinal tumour curves, individual growth traces, waterfall response, forest plot, histology, immune composition and toxicity panels |
+| Single-cell systems figure | <a href="assets/gallery/fig4-single-cell-systems-rich.png"><img src="assets/gallery/fig4-single-cell-systems-rich.png" width="260" alt="Single-cell systems figure"></a> | UMAP-style embedding, composition, marker heatmap, pseudotime, volcano plot, enrichment, ligand-receptor bubble matrix and spatial niche adjacency |
+| Perturbation validation | <a href="assets/gallery/fig5-validation-perturbation-rich.png"><img src="assets/gallery/fig5-validation-perturbation-rich.png" width="260" alt="Perturbation validation"></a> | Mechanistic perturbation timeline, relapse endpoint, polar summary, dose response, synergy matrix, biodistribution, cytokines, flow-like scatter and safety score |
+
+**Gallery file policy**  
+Keep only lightweight PNG previews in `assets/gallery/`. Do not commit large generated
+SVG/PDF outputs unless they are needed for a tutorial, because real users should regenerate
+editable outputs from source data and scripts.
+
+---
+
 ## File structure
 
 ```
 nature-figure/
 ├── SKILL.md                     ← skill trigger & overview (loaded by Claude automatically)
 ├── README.md                    ← this file
+├── assets/
+│   └── gallery/                 ← README preview PNGs
 └── references/
     ├── api.md                   ← PALETTE constants, helper function signatures
     ├── design-theory.md         ← typography, color theory, layout, export policy

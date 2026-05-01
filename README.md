@@ -30,6 +30,29 @@ writing curricula), not from general style intuition.
 visual standards: correct typography, semantic colour palette, editable SVG output,
 and non-redundant panel information architecture.
 
+**Example output gallery** — Five dense, simulated *Nature*-style result figures are
+included in the [`nature-figure` gallery](nature-figure/README.md#example-output-gallery):
+material/mechanism, spatial imaging, in vivo efficacy, single-cell systems and
+perturbation validation.
+
+<p>
+  <a href="nature-figure/assets/gallery/fig1-material-mechanism-rich.png">
+    <img src="nature-figure/assets/gallery/fig1-material-mechanism-rich.png" width="19%" alt="Material design and physical validation example">
+  </a>
+  <a href="nature-figure/assets/gallery/fig2-spatial-imaging-rich.png">
+    <img src="nature-figure/assets/gallery/fig2-spatial-imaging-rich.png" width="19%" alt="Spatial imaging and uptake example">
+  </a>
+  <a href="nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png">
+    <img src="nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png" width="19%" alt="In vivo efficacy and tolerability example">
+  </a>
+  <a href="nature-figure/assets/gallery/fig4-single-cell-systems-rich.png">
+    <img src="nature-figure/assets/gallery/fig4-single-cell-systems-rich.png" width="19%" alt="Single-cell systems figure example">
+  </a>
+  <a href="nature-figure/assets/gallery/fig5-validation-perturbation-rich.png">
+    <img src="nature-figure/assets/gallery/fig5-validation-perturbation-rich.png" width="19%" alt="Perturbation validation example">
+  </a>
+</p>
+
 **Built from** — Production scripts from papers published in *Nature Machine Intelligence*
 and top ML/bioinformatics venues ([figures4papers](https://github.com/ChenLiu-1996/figures4papers)).
 
