@@ -11,6 +11,7 @@ This version was expanded using:
 ## What changed
 
 - The skill is now `move-based`, not just rule-based.
+- The skill keeps high-level `writing strategy` in the core context instead of treating it as optional surface advice.
 - Section-specific rhetoric is separated from style guardrails.
 - Phrasebank-style support for gaps, literature positioning, results phrasing, cautious interpretation, conclusions, and abstracts has been added.
 - The main `SKILL.md` is shorter and more executable.
@@ -25,7 +26,8 @@ nature-polishing/
 └── references/
     ├── phrasebank-playbook.md
     ├── section-moves.md
-    └── style-guardrails.md
+    ├── style-guardrails.md
+    └── writing-strategy.md
 ```
 
 ## When to use
@@ -41,6 +43,7 @@ nature-polishing/
 The skill should:
 
 - preserve facts and citation intent
+- preserve the user's original emphasis on section-level thinking and manuscript logic
 - improve rhetorical sequencing at paragraph level
 - keep sentences short and readable
 - use stronger phrase families for section-specific writing tasks
@@ -51,6 +54,7 @@ The skill should:
 - `section-moves.md`: section order and move patterns
 - `phrasebank-playbook.md`: hedging, transitions, evidence, limitations, future work
 - `style-guardrails.md`: British style, articles, abbreviations, units, register, overclaim control
+- `writing-strategy.md`: hourglass logic, claim-evidence-boundary thinking, section responsibilities, citation positioning
 
 ## Notes
 

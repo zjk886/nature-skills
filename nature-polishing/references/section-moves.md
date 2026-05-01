@@ -4,6 +4,13 @@ Use this file when the task depends on the rhetorical job of a section. Do not l
 
 ## Introduction
 
+Questions this section must answer:
+
+1. Why does the topic matter?
+2. What is already known?
+3. What is still missing or contested?
+4. What does the present study ask or do?
+
 Preferred move order:
 
 1. establish importance
@@ -30,6 +37,13 @@ Avoid:
 
 ## Literature Review
 
+Questions this section must answer:
+
+1. What lines of work define the field?
+2. What has been established?
+3. Where do findings diverge or remain incomplete?
+4. Which gap matters for the present paper?
+
 Preferred move order:
 
 1. describe the scope of existing work
@@ -53,6 +67,10 @@ Avoid:
 - treating all prior work as uniformly weak
 
 ## Methods
+
+Question this section must answer:
+
+- Could another group reproduce the work from this description, or from this description plus a clearly cited protocol?
 
 Preferred move order:
 
@@ -80,6 +98,10 @@ Avoid:
 
 ## Results
 
+Question this section must answer:
+
+- What was observed, under which condition, and with what evidence?
+
 Preferred move order:
 
 1. orient the reader to the figure, table, or experiment
@@ -104,6 +126,14 @@ Avoid:
 - repeating every visual detail from the figure
 
 ## Discussion
+
+Questions this section must answer:
+
+1. What do the main findings mean?
+2. How do they relate to earlier work?
+3. Which explanations are plausible?
+4. What limitations constrain interpretation?
+5. What follows from the findings, and what does not?
 
 Preferred move order:
 
@@ -130,6 +160,12 @@ Avoid:
 
 ## Conclusion
 
+Questions this section must answer:
+
+1. What was the central contribution?
+2. Which finding matters most?
+3. What implication follows, with what boundary?
+
 Preferred move order:
 
 1. return to the aim
@@ -152,6 +188,13 @@ Avoid:
 
 ## Abstract
 
+Questions this section must answer:
+
+1. What problem or gap is being addressed?
+2. What was done?
+3. What was found?
+4. Why should the reader care?
+
 Preferred move order:
 
 1. broad context
@@ -171,6 +214,10 @@ Useful phrase families:
 Keep the abstract selective. If a detail does not affect editorial triage, it probably does not belong.
 
 ## Title
+
+Question this section must answer:
+
+- Which few words make the paper searchable, accurate, and interesting without overclaiming?
 
 Target properties:
 
