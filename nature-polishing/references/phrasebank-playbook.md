@@ -1,6 +1,6 @@
 # Phrasebank Playbook
 
-Use this file when you need functional phrase choices: hedging, transitions, evidence statements, paragraph linking, limitation language, or future-work wording.
+Use this file after the main argument and section role are already clear. It is a phrasebank layer derived from `Academic Phrasebank`, not a substitute for deciding what the paragraph is trying to do.
 
 ## Evidence strength
 

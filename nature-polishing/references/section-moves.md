@@ -1,6 +1,6 @@
 # Section Moves
 
-Use this file when the task depends on the rhetorical job of a section. Do not load it for every polishing request. Open only the relevant section.
+Use this file only after the main section logic has been decided in `SKILL.md`. This file is for phrase-level and move-level support derived from `Academic Phrasebank`, not for deciding the paper's overall writing strategy.
 
 ## Introduction
 

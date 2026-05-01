@@ -2,20 +2,17 @@
 
 An academic-writing skill for polishing, restructuring, and translating manuscript prose into concise `Nature`-leaning English.
 
-This version was expanded using:
+Source hierarchy:
 
-- close reading of sampled `Nature` papers
-- a scientific English writing course
-- the 2023 `Academic Phrasebank` PDF supplied locally by the user
+- `Main strategy`: the course notes in `Chapter1-Week1-7 完整版（full version).pdf`
+- `Reference support`: `Academic-Phrasebank-Navigable-PDF-2023.pdf`
 
 ## What changed
 
-- The skill is now `move-based`, not just rule-based.
-- The skill keeps high-level `writing strategy` in the core context instead of treating it as optional surface advice.
-- Section-specific rhetoric is separated from style guardrails.
-- Phrasebank-style support for gaps, literature positioning, results phrasing, cautious interpretation, conclusions, and abstracts has been added.
-- The main `SKILL.md` is shorter and more executable.
-- Reusable reference files now hold the larger phrase inventories.
+- The main `SKILL.md` now follows the first PDF's architecture: paper type, reader workflow, hourglass structure, writing order, section responsibilities, intellectual debt, and AI/ethics boundaries.
+- The reference folder now serves a narrower role: phrase families, move templates, and style checks derived from the second PDF.
+- The skill now distinguishes `research papers` from `methods papers`.
+- The skill treats `core argument ownership` as a central rule, not a side note.
 
 ## File structure
 
@@ -26,13 +23,13 @@ nature-polishing/
 └── references/
     ├── phrasebank-playbook.md
     ├── section-moves.md
-    ├── style-guardrails.md
-    └── writing-strategy.md
+    └── style-guardrails.md
 ```
 
 ## When to use
 
 - polishing an abstract, introduction, results, discussion, conclusion, or title
+- polishing a methods section or a methods paper with fair-comparison logic
 - translating Chinese academic text into publishable English
 - tightening section logic before submission
 - softening overclaims and fixing evidence-weighted language
@@ -42,11 +39,11 @@ nature-polishing/
 
 The skill should:
 
-- preserve facts and citation intent
-- preserve the user's original emphasis on section-level thinking and manuscript logic
+- preserve facts, citation intent, and author responsibility
+- make the first PDF the governing writing strategy
 - improve rhetorical sequencing at paragraph level
 - keep sentences short and readable
-- use stronger phrase families for section-specific writing tasks
+- use the second PDF only as the phrase and reference layer
 - avoid generic AI prose and unsupported claims
 
 ## Reference map
@@ -54,9 +51,9 @@ The skill should:
 - `section-moves.md`: section order and move patterns
 - `phrasebank-playbook.md`: hedging, transitions, evidence, limitations, future work
 - `style-guardrails.md`: British style, articles, abbreviations, units, register, overclaim control
-- `writing-strategy.md`: hourglass logic, claim-evidence-boundary thinking, section responsibilities, citation positioning
 
 ## Notes
 
 - The skill is designed for polishing and restructuring, not for fabricating scientific content.
+- The main strategic rules live in `SKILL.md`; the reference files should not overrule them.
 - The reference files are intentionally selective. They are meant to guide choices, not to encourage boilerplate copying.

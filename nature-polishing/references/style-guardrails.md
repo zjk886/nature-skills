@@ -1,12 +1,14 @@
 # Style Guardrails
 
-Use this file for mechanical and stylistic checks after the main rewrite.
+Use this file for mechanical and stylistic checks after the main rewrite. This file should refine prose and correctness, not override the main writing strategy in `SKILL.md`.
 
-## Nature-leaning house style
+## Academic style
 
-- default to British spelling: `analyse`, `colour`, `signalling`, `modelling`, `behaviour`, `centre`
+- prefer cautious, precise prose over conversational confidence
+- avoid contractions
+- avoid rhetorical questions in polished manuscript prose
 - define abbreviations on first use
-- use italics for variables, gene names, and non-English terms where appropriate
+- use British spelling by default if the target is Nature-style prose
 - keep figure legends concise; if aiming for Nature style, `<= 300` words is a good upper bound
 - if aiming for Nature style, keep titles at `<= 75` characters including spaces
 
@@ -36,11 +38,10 @@ Do not rewrite numbers into words unless the surrounding house style demands it.
 
 ## Academic register
 
-- avoid contractions: `do not`, not `don't`
-- avoid rhetorical questions in polished prose
 - avoid spoken fillers and weak evaluative language
 - use `we` only when it suits the discipline and document type
 - keep nominalisation useful, not excessive
+- keep the prose impersonal where appropriate, but do not force lifelessness
 
 ## Sentence and paragraph checks
 
@@ -48,6 +49,7 @@ Do not rewrite numbers into words unless the surrounding house style demands it.
 - dependent clauses must stay attached to a main clause
 - do not join two independent clauses with only a comma
 - each paragraph needs a controlling idea and supporting material
+- avoid common structure errors such as sentence fragments introduced by `although` or `whereas`
 
 ## Overclaim checklist
 
