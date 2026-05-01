@@ -17,6 +17,7 @@ writing curricula), not from general style intuition.
 |-------|--------|---------|-----------------|
 | [`nature-figure`](nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
 | [`nature-polishing`](nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
+| [`nature-data`](nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "数据可用性声明" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
 
@@ -99,6 +100,48 @@ nature-polishing/
 
 ---
 
+## nature-data
+
+**What it does** — Prepares and audits Data Availability statements, repository plans,
+dataset citations, and FAIR metadata checks for Nature-family and Springer Nature
+submissions. It is bilingual-aware: Chinese author notes such as "数据可用性声明",
+"可向通讯作者索取", "原始数据", "受限数据", and "公开数据库" are converted into precise
+submission-ready English with Chinese action notes.
+
+**Built from** — Springer Nature research data policy, Nature Portfolio reporting standards,
+Scientific Data repository and citation practice, the FAIR Guiding Principles, and DataCite
+metadata conventions.
+
+**Key rules enforced**
+
+| Domain | Core rule |
+|--------|-----------|
+| Data Availability | Map every result-supporting dataset to a durable access route |
+| Repository strategy | Prefer mandated or discipline-specific repositories with persistent identifiers |
+| Restricted data | State the restriction reason, controller, review route, and access conditions |
+| Dataset citations | Cite public datasets with DataCite-style creator, title, repository, year, and identifier metadata |
+| FAIR metadata | Check identifiers, licence, README/data dictionary, provenance, version, and reuse conditions |
+| Chinese alignment | Translate intent rather than literal wording; flag vague "reasonable request" phrasing |
+
+**Reference files**
+
+```
+nature-data/
+├── README.md
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+└── references/
+    ├── chinese-author-alignment.md
+    ├── fair-metadata-checklist.md
+    ├── policy-principles.md
+    ├── repository-and-identifiers.md
+    ├── source-basis.md
+    └── statement-patterns.md
+```
+
+---
+
 ## Shared design principles
 
 All skills in this collection adhere to the following:
@@ -121,14 +164,14 @@ To add a skill to this collection:
 
 **1. Create a directory**
 ```
-skills/nature-<topic>/
+nature-<topic>/
 ```
 
 **2. Minimum required files**
 
 | File | Required | Purpose |
 |------|----------|---------|
-| `SKILL.md` | Yes | Frontmatter (`name`, `description`, `trigger`) + rules + workflow; loaded by Claude automatically |
+| `SKILL.md` | Yes | Frontmatter (`name`, `description`) + rules + workflow; loaded by the agent after triggering |
 | `README.md` | Yes | Human-readable reference in full English |
 | `references/*.md` | Recommended for complex skills | Modular rule files (api, design theory, tutorials, chart types, …) |
 
@@ -139,9 +182,6 @@ name: nature-<topic>
 description: >-
   One-sentence description of what the skill does and when to trigger it.
   Include the output format and the primary use case.
-version: 1.0.0
-author: Derived from [source]
-trigger: When the user asks to [action] in the context of [domain]
 ---
 ```
 
@@ -173,4 +213,3 @@ The following are documented gaps. Contributions welcome.
 | `nature-methods` | Deep-dive Methods writing assistant — reproducibility checklist, forbidden phrases, ethical approval templates, supplementary organisation | Medium |
 | `nature-cover` | Cover letter drafting — hook paragraph, significance framing, fit-to-journal argument, ≤ 500-word limit | Medium |
 | `nature-review` | Writing a literature review or review article in *Nature Reviews* style — synthesis vs. summary, argument-led structure | Low |
-| `nature-data` | Data availability statements, repository formatting, metadata standards (FAIR principles) | Low |
