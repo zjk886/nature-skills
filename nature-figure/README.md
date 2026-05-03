@@ -1,6 +1,18 @@
 # nature-figure skill
 
-Publication-ready matplotlib figures for Nature-tier journals and high-impact academic venues.  
+Submission-grade scientific figures for Nature-tier journals and high-impact academic venues,
+with both Python and R plotting tracks.
+
+The skill starts from a figure contract: core conclusion, evidence hierarchy, archetype,
+backend choice, journal/export constraints, statistics, and source-data traceability.
+Plotting templates are used only after the scientific logic is clear.
+
+Python remains the best-supported low-level layout path through `matplotlib`, `seaborn`,
+`subplot_mosaic`, and `statsmodels`. R is supported through `ggplot2`, `patchwork`,
+`ComplexHeatmap`, `ggrepel`, `svglite`, `cairo_pdf`, and `ragg`. If private template
+collections are used, their paths, filenames, and provenance must not appear in
+user-facing output.
+
 Derived from production scripts in [figures4papers](https://github.com/ChenLiu-1996/figures4papers)
 (published in *Nature Machine Intelligence* and top ML/bioinformatics venues).
 
@@ -59,6 +71,11 @@ nature-figure/
 │   ├── gallery/                 ← result-figure preview PNGs
 │   └── chart-atlas/             ← chart-type taxonomy preview PNGs
 └── references/
+    ├── figure-contract.md       ← core conclusion, evidence hierarchy, panel map
+    ├── backend-selection.md     ← Python vs R decision rules
+    ├── r-workflow.md            ← R scaffold, patchwork, ComplexHeatmap, export
+    ├── r-template-index.md      ← local R template atlas
+    ├── qa-contract.md           ← submission/revision QA checklist
     ├── api.md                   ← PALETTE constants, helper function signatures
     ├── design-theory.md         ← typography, color theory, layout, export policy
     ├── common-patterns.md       ← reusable code patterns (bars, legends, heatmaps)
@@ -68,7 +85,28 @@ nature-figure/
 
 ---
 
-## Mandatory rules (always apply, no exceptions)
+## Backend and contract rules
+
+Ask the user to choose **Python or R** unless the backend is already specified.
+If they ask for a recommendation, use `references/backend-selection.md`.
+
+After a backend is selected, use it exclusively for plotting, previews, exports,
+and visual QA. If the selected runtime or packages are missing, stop and report the
+blocker; do not render a fallback preview with the other language. This applies in
+both directions: no Python substitute for R, and no R substitute for Python.
+
+Before plotting, write or infer the core conclusion, figure archetype, panel map,
+evidence hierarchy, target output, statistics/source-data needs, and export bundle.
+The figure must serve the scientific logic first. Aesthetic polish and template
+matching are secondary.
+
+User-facing output must not disclose private local paths, private filenames, internal
+reference documents, template identifiers, or private-material provenance unless the
+user explicitly asks for that audit trail.
+
+---
+
+## Python mandatory rules
 
 ### 1. Three required rcParams — editable SVG text
 
@@ -372,15 +410,18 @@ def luminance_text_color(hex_color):
 
 ## Reproduction checklist
 
+- [ ] Core conclusion and panel map are clear before styling
+- [ ] Backend is explicitly Python or R
 - [ ] **Lines 1–3**: `font.family`, `font.sans-serif` (three fonts), `svg.fonttype = 'none'`
 - [ ] Primary output is **SVG** (`bbox_inches='tight'`)
 - [ ] Right and top spines off; `legend.frameon = False`
-- [ ] Font size ≥ 12 base (24 for large bar panels)
+- [ ] Font size matches final use: 5–7 pt for dense journal output, larger only for slide-sized panels
 - [ ] Colors come from one coherent palette system: either semantic `PALETTE` or unified `PALETTE_NMI_PASTEL`
 - [ ] Related model sizes / variants share a hue family; do not assign unrelated saturated colors to siblings
 - [ ] Green / red reserved for gains, drops, thresholds, or truly signed semantics
 - [ ] Y-limits tightened to data range
 - [ ] Multi-panel figures: each panel answers a **different** question (anti-redundancy checklist passed)
-- [ ] Panel labels (`a`, `b`, `c`) in bold 20–22 pt via `transAxes`
+- [ ] Panel labels (`a`, `b`, `c`) are bold lowercase and sized for final output
+- [ ] Statistics, `n`, source data, and image-integrity notes are documented when manuscript-facing
 - [ ] `tight_layout(pad=2)` before save
 - [ ] `plt.close(fig)` after save
