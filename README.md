@@ -5,6 +5,12 @@
 
 ---
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Yuan1z0825/nature-skills&type=Date)](https://star-history.com/#Yuan1z0825/nature-skills&Date)
+
+---
+
 ## Skill index
 
 | Skill | Status | Purpose | Trigger keywords |
