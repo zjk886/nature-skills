@@ -302,12 +302,27 @@ def infer_export_format(output_path: Path | None) -> str:
     return DEFAULT_EXPORT_FORMAT
 
 
-def export_filename(export_format: str) -> str:
+def export_filename(export_format: str, base: str = "references") -> str:
     if export_format == "ris":
-        return "references.ris"
+        return f"{base}.ris"
     if export_format == "zotero-rdf":
-        return "references.rdf"
-    return "references.enw"
+        return f"{base}.rdf"
+    return f"{base}.enw"
+
+
+def slug_from_text(text: str, max_words: int = 6) -> str:
+    """Derive a filename slug from the first meaningful words of manuscript text."""
+    text = clean_text(text)
+    text = re.sub(r"\[[^\]]+\]|\([A-Za-z]+ et al\.,? \d{4}\)", " ", text)
+    words = re.findall(r"[A-Za-z0-9]+|[一-鿿]+", text)
+    stopwords = {
+        "the", "a", "an", "and", "or", "of", "to", "in", "for", "by", "with", "on", "at",
+        "from", "is", "are", "was", "were", "be", "been", "being", "that", "this", "these",
+        "those", "it", "its", "can", "may", "could", "not", "but", "as", "if", "into",
+    }
+    content = [w for w in words if w.lower() not in stopwords]
+    slug = "-".join(w.lower() for w in content[:max_words])
+    return slug or "references"
 
 
 def export_label(export_format: str) -> str:
@@ -1809,8 +1824,13 @@ def main(argv: list[str]) -> int:
         outdir = Path.cwd().resolve()
     outdir.mkdir(parents=True, exist_ok=True)
     args.format = normalize_export_format(args.format) if args.format else infer_export_format(output_path)
+
+    # Derive a meaningful base name from input text when no explicit output file was given
+    raw_text = read_text_inputs(args)
+    name_base = slug_from_text(raw_text) if not args.output_file else None
+
     if output_path is None:
-        output_path = outdir / export_filename(args.format)
+        output_path = outdir / export_filename(args.format, base=name_base or "references")
 
     mapping, references, errors = build_mapping(segments, args)
     doi_candidates, doi_errors = fetch_doi_candidates(dois, args)
@@ -1825,11 +1845,12 @@ def main(argv: list[str]) -> int:
         write_zotero_rdf(references, output_path)
 
     if args.with_artifacts:
+        artifact_base = outdir / name_base if name_base else outdir / "citation"
         json_payload = mapping_to_json(mapping, references, args, errors)
-        (outdir / "segment_reference_map.json").write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        write_mapping_tsv(mapping, outdir / "segment_reference_map.tsv")
-        write_report(mapping, outdir / "citation_report.md", args.scope, len(references), args.format, output_path.name)
-        write_html(mapping, references, outdir, outdir / "citation_visualization.html", output_path, args.format)
+        (artifact_base.with_suffix(".json")).write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        write_mapping_tsv(mapping, artifact_base.with_suffix(".tsv"))
+        write_report(mapping, artifact_base.with_suffix(".md"), args.scope, len(references), args.format, output_path.name)
+        write_html(mapping, references, outdir, artifact_base.with_suffix(".html"), output_path, args.format)
 
     print(f"Reference output: {output_path}")
     print(f"Export format: {args.format} ({export_label(args.format)})")
