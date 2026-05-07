@@ -19,7 +19,7 @@
 | [`nature-polishing`](skills/nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
 | [`nature-citation`](skills/nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
 | [`nature-data`](skills/nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "data availability statement" |
-| [`nature-response`](skills/nature-response/README.md) | Draft | Point-by-point reviewer response letters with comment triage, action mapping, and risk checks | "response to reviewers", "rebuttal letter", "major revision", "审稿意见回复" |
+| [`nature-response`](skills/nature-response/README.md) | Beta | Point-by-point reviewer response letters with comment triage, action mapping, and risk checks | "response to reviewers", "rebuttal letter", "major revision", "审稿意见回复" |
 | [`nature-paper2ppt`](skills/nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "paper to slides", "paper presentation" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
@@ -236,13 +236,18 @@ skills/nature-response/
 │   ├── response-structure.md
 │   ├── source-basis.md
 │   └── tone-and-stance.md
-└── tests/
+├── tests/
     ├── conflicting-reviewers.md
     ├── defensive-draft-audit.md
+    ├── evaluation-summary.md
     ├── impossible-experiment.md
     ├── major-revision-missing-evidence.md
     ├── minor-revision.md
     └── rubric.md
+└── examples/
+    ├── conflicting-reviewers.md
+    ├── major-revision-with-missing-evidence.md
+    └── minor-revision.md
 ```
 
 ---

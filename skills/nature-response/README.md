@@ -74,16 +74,21 @@ nature-response/
 │   ├── difficult-cases.md
 │   ├── intake-and-routing.md
 │   └── qa-checklist.md
-└── tests/
+├── tests/
     ├── conflicting-reviewers.md
     ├── defensive-draft-audit.md
+    ├── evaluation-summary.md
     ├── minor-revision.md
     ├── major-revision-missing-evidence.md
     ├── impossible-experiment.md
     └── rubric.md
+└── examples/
+    ├── conflicting-reviewers.md
+    ├── major-revision-with-missing-evidence.md
+    └── minor-revision.md
 ```
 
 ## Status
 
-Draft. The MVP behavior is defined by the Markdown fixtures in `tests/`. Public examples are
-deferred until the test cases pass and the skill has been exercised on anonymized real cases.
+Beta. The behavior is defined by synthetic Markdown fixtures and examples. The skill should remain
+below Stable until it has been validated on real anonymized revision packages with author permission.
