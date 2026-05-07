@@ -3,8 +3,7 @@
 A data-availability skill for preparing manuscript data statements, repository plans, dataset
 citations, and FAIR metadata checks in a Nature / Springer Nature publication style.
 
-This skill is bilingual-aware. It accepts Chinese author notes such as "数据可用性声明",
-"数据可向通讯作者索取", "原始数据", "受限数据", or "公开数据库", then converts them into
+This skill is bilingual-aware. It accepts Chinese author notes covering data availability statements, data requests to the corresponding author, raw data, restricted data, or public databases, then converts them into
 submission-ready English with Chinese action notes for the author.
 
 ## What it does

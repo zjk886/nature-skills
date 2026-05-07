@@ -4,7 +4,7 @@ An academic-writing skill for polishing, restructuring, and translating manuscri
 
 Source hierarchy:
 
-- `Main strategy`: the course notes in `Chapter1-Week1-7 完整版（full version).pdf`
+- `Main strategy`: the course notes in `Chapter1-Week1-7 full version.pdf`
 - `Reference support`: `Academic-Phrasebank-Navigable-PDF-2023.pdf`
 
 ## What changed

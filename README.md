@@ -17,9 +17,9 @@
 |-------|--------|---------|-----------------|
 | [`nature-figure`](nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
 | [`nature-polishing`](nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
-| [`nature-citation`](nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "分段引用", "支撑文献", "Zotero RDF" |
-| [`nature-data`](nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "数据可用性声明" |
-| [`nature-paper2ppt`](nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "文献汇报", "论文做成PPT" |
+| [`nature-citation`](nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
+| [`nature-data`](nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "data availability statement" |
+| [`nature-paper2ppt`](nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "paper to slides", "paper presentation" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
 
@@ -41,23 +41,8 @@ classifies 10 supported chart families, including bar, line, heatmap, scatter/bu
 radar/polar, distribution, forest/interval, area/stacked, image-plate and network/matrix
 layouts.
 
-<p>
-  <a href="nature-figure/assets/gallery/fig1-material-mechanism-rich.png">
-    <img src="nature-figure/assets/gallery/fig1-material-mechanism-rich.png" width="19%" alt="Material design and physical validation example">
-  </a>
-  <a href="nature-figure/assets/gallery/fig2-spatial-imaging-rich.png">
-    <img src="nature-figure/assets/gallery/fig2-spatial-imaging-rich.png" width="19%" alt="Spatial imaging and uptake example">
-  </a>
-  <a href="nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png">
-    <img src="nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png" width="19%" alt="In vivo efficacy and tolerability example">
-  </a>
-  <a href="nature-figure/assets/gallery/fig4-single-cell-systems-rich.png">
-    <img src="nature-figure/assets/gallery/fig4-single-cell-systems-rich.png" width="19%" alt="Single-cell systems figure example">
-  </a>
-  <a href="nature-figure/assets/gallery/fig5-validation-perturbation-rich.png">
-    <img src="nature-figure/assets/gallery/fig5-validation-perturbation-rich.png" width="19%" alt="Perturbation validation example">
-  </a>
-</p>
+| ![Material design and physical validation](nature-figure/assets/gallery/fig1-material-mechanism-rich.png) | ![Spatial imaging and uptake](nature-figure/assets/gallery/fig2-spatial-imaging-rich.png) | ![In vivo efficacy and tolerability](nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png) | ![Single-cell systems figure](nature-figure/assets/gallery/fig4-single-cell-systems-rich.png) | ![Perturbation validation](nature-figure/assets/gallery/fig5-validation-perturbation-rich.png) |
+|---|---|---|---|---|
 
 **Built from** — Production scripts from papers published in *Nature Machine Intelligence*
 and top ML/bioinformatics venues ([figures4papers](https://github.com/ChenLiu-1996/figures4papers)).
@@ -174,8 +159,8 @@ HTML browser, then download only the selected records as `ENW`, `RIS`, or Zotero
 
 **What it does** — Prepares and audits Data Availability statements, repository plans,
 dataset citations, and FAIR metadata checks for Nature-family and Springer Nature
-submissions. It is bilingual-aware: Chinese author notes such as "数据可用性声明",
-"可向通讯作者索取", "原始数据", "受限数据", and "公开数据库" are converted into precise
+submissions. It is bilingual-aware: Chinese author notes such as "data availability statement",
+"request from corresponding author", "raw data", "restricted data", and "public database" are converted into precise
 submission-ready English with Chinese action notes.
 
 **Built from** — Springer Nature research data policy, Nature Portfolio reporting standards,
