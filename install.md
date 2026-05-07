@@ -5,7 +5,7 @@ This file explains how to install the skills in this repository so they are actu
 The most important point is simple:
 
 - `nature-skills` is **not** a Python package or npm package
-- each top-level `nature-*` folder is one reusable skill unit
+- each `skills/nature-*` folder is one reusable skill unit
 - in most cases, you should copy or reference the **entire folder**, not only `SKILL.md`
 
 Why that matters:
@@ -18,13 +18,17 @@ Why that matters:
 
 ## 1. What gets installed
 
-Each installable skill looks like this:
+Each installable skill lives under `skills/` and is centred on `SKILL.md`.
+Some also include `README.md`, `references/`, assets, scripts, or eval files.
+
+Typical examples:
 
 ```text
-nature-<topic>/
+skills/nature-<topic>/
 ├── SKILL.md
-├── README.md
-└── references/
+├── README.md              # common, but not guaranteed
+├── references/            # present for some skills
+└── ...
 ```
 
 Examples in this repository:
@@ -34,9 +38,10 @@ Examples in this repository:
 - `nature-citation`
 - `nature-data`
 - `nature-paper2ppt`
+- `nature-response`
 
 If you want one skill, install one folder.
-If you want the full collection, install all `nature-*` folders.
+If you want the full collection, install all `skills/nature-*` folders.
 
 ---
 
@@ -67,14 +72,14 @@ Example: install `nature-polishing`
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R nature-polishing ~/.codex/skills/
+cp -R skills/nature-polishing ~/.codex/skills/
 ```
 
 ### 3.3 Install all current skills
 
 ```bash
 mkdir -p ~/.codex/skills
-for d in nature-*; do
+for d in skills/nature-*; do
   cp -R "$d" ~/.codex/skills/
 done
 ```
@@ -102,17 +107,17 @@ When this repository changes:
 ```bash
 cd /path/to/nature-skills
 git pull
-cp -R nature-polishing ~/.codex/skills/
+cp -R skills/nature-polishing ~/.codex/skills/
 ```
 
-If you installed all skills, re-copy all `nature-*` folders after pulling.
+If you installed all skills, re-copy all `skills/nature-*` folders after pulling.
 
 ### 3.6 Common Codex mistake
 
 Do **not** do this:
 
 ```bash
-cp nature-polishing/SKILL.md ~/.codex/skills/
+cp skills/nature-polishing/SKILL.md ~/.codex/skills/
 ```
 
 That copies only one file and drops the rest of the skill bundle.
@@ -120,7 +125,7 @@ That copies only one file and drops the rest of the skill bundle.
 Use this instead:
 
 ```bash
-cp -R nature-polishing ~/.codex/skills/
+cp -R skills/nature-polishing ~/.codex/skills/
 ```
 
 ---
@@ -135,7 +140,7 @@ The practical solution is:
 2. create a small Claude Code wrapper
 3. let that wrapper tell Claude Code to read the real `SKILL.md` from this repository
 
-This keeps the original skill structure intact and avoids breaking `references/`.
+This keeps the original skill structure intact and avoids breaking supporting files such as `references/`, `README.md`, assets, or scripts when a skill depends on them.
 
 Official Claude Code documentation:
 
@@ -182,10 +187,10 @@ name: nature-polishing
 description: Use proactively for Nature-style academic polishing, restructuring, or Chinese-to-English manuscript refinement.
 ---
 
-When invoked, first read `~/ai-skills/nature-skills/nature-polishing/SKILL.md`.
+When invoked, first read `~/ai-skills/nature-skills/skills/nature-polishing/SKILL.md`.
 Treat that file as the governing workflow.
 If the skill references supporting files, read only the specific files you need from
-`~/ai-skills/nature-skills/nature-polishing/`.
+`~/ai-skills/nature-skills/skills/nature-polishing/`.
 Do not replace the skill with a generic polishing response.
 EOF
 ```
@@ -203,8 +208,8 @@ If you prefer a command instead of a subagent:
 ```bash
 mkdir -p ~/.claude/commands
 cat > ~/.claude/commands/nature-polishing.md <<'EOF'
-Read `~/ai-skills/nature-skills/nature-polishing/SKILL.md` first and follow it strictly.
-Read any directly needed supporting files from `~/ai-skills/nature-skills/nature-polishing/`.
+Read `~/ai-skills/nature-skills/skills/nature-polishing/SKILL.md` first and follow it strictly.
+Read any directly needed supporting files from `~/ai-skills/nature-skills/skills/nature-polishing/`.
 
 $ARGUMENTS
 EOF
@@ -240,7 +245,7 @@ Repeat the same pattern for other folders:
 For example, a `nature-paper2ppt` wrapper should point to:
 
 ```text
-~/ai-skills/nature-skills/nature-paper2ppt/SKILL.md
+~/ai-skills/nature-skills/skills/nature-paper2ppt/SKILL.md
 ```
 
 ### 4.7 Update later
@@ -256,13 +261,14 @@ If your wrapper points to this stable clone path, no further reinstall step is n
 
 ## 5. Install for other agents
 
-If your agent supports reusable prompt folders, profile files, or custom system prompts, use the skill directory as the portable unit:
+If your agent supports reusable prompt folders, profile files, or custom system prompts, use the real skill directory under `skills/` as the portable unit:
 
 ```text
-nature-<topic>/
+skills/nature-<topic>/
 ├── SKILL.md
-├── README.md
-└── references/
+├── README.md              # common, but not guaranteed
+├── references/            # present for some skills
+└── ...
 ```
 
 Recommended rule:
@@ -298,7 +304,7 @@ Recommended rule:
 
 Check:
 
-- did you install the full `nature-*` folder rather than only `SKILL.md`?
+- did you install the full `skills/nature-*` folder rather than only `SKILL.md`?
 - did you start a fresh session after installation?
 - are you asking for a task that clearly matches the skill?
 
@@ -333,7 +339,7 @@ Then:
 git clone https://github.com/Yuan1z0825/nature-skills.git
 cd nature-skills
 mkdir -p ~/.codex/skills
-cp -R nature-polishing ~/.codex/skills/
+cp -R skills/nature-polishing ~/.codex/skills/
 ```
 
 ### Codex: full install
@@ -342,7 +348,7 @@ cp -R nature-polishing ~/.codex/skills/
 git clone https://github.com/Yuan1z0825/nature-skills.git
 cd nature-skills
 mkdir -p ~/.codex/skills
-for d in nature-*; do
+for d in skills/nature-*; do
   cp -R "$d" ~/.codex/skills/
 done
 ```
@@ -361,10 +367,10 @@ name: nature-polishing
 description: Use proactively for Nature-style academic polishing, restructuring, or Chinese-to-English manuscript refinement.
 ---
 
-When invoked, first read `~/ai-skills/nature-skills/nature-polishing/SKILL.md`.
+When invoked, first read `~/ai-skills/nature-skills/skills/nature-polishing/SKILL.md`.
 Treat that file as the governing workflow.
 If the skill references supporting files, read only the specific files you need from
-`~/ai-skills/nature-skills/nature-polishing/`.
+`~/ai-skills/nature-skills/skills/nature-polishing/`.
 EOF
 ```
 
