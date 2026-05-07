@@ -19,6 +19,7 @@
 | [`nature-polishing`](skills/nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
 | [`nature-citation`](skills/nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
 | [`nature-data`](skills/nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "data availability statement" |
+| [`nature-response`](skills/nature-response/README.md) | Beta | Point-by-point reviewer response letters with comment triage, action mapping, and risk checks | "response to reviewers", "rebuttal letter", "major revision", "审稿意见回复" |
 | [`nature-paper2ppt`](skills/nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "paper to slides", "paper presentation" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
@@ -197,6 +198,60 @@ skills/nature-data/
 
 ---
 
+## nature-response
+
+**What it does** — Drafts, audits, and revises point-by-point reviewer response
+letters for Nature-family and high-impact journal manuscript revisions. It treats the
+response letter as an editor-facing verification document: every reviewer concern is assigned
+a stable ID, classified, mapped to an action, and tied to manuscript evidence, a revision
+location, or an unresolved author-input flag.
+
+**Built from** — Nature editorial process guidance, Nature-family revision-package
+instructions, Springer Nature rebuttal advice, and transparent peer-review considerations.
+
+**Key rules enforced**
+
+| Domain | Core rule |
+|--------|-----------|
+| Completeness | Every reviewer comment receives an ID and a response, cross-reference, or unresolved flag |
+| Action mapping | Each reply maps to a concrete manuscript action such as `ACCEPT_TEXT`, `ACCEPT_ANALYSIS`, `SOFTEN_CLAIM`, or `AUTHOR_INPUT_NEEDED` |
+| Traceability | Claimed changes must cite a section, page, line, figure, table, supplement, citation, or visible placeholder |
+| Factuality | Do not invent experiments, analyses, citations, line numbers, figure panels, editor instructions, or manuscript changes |
+| Tone | Use cooperative, evidence-forward language; disagree only with scientific or scope-based reasoning |
+| Chinese alignment | Convert Chinese author notes into English response prose plus Chinese confirmation items when needed |
+
+**Reference files**
+
+```
+skills/nature-response/
+├── README.md
+├── SKILL.md
+├── references/
+│   ├── action-mapping.md
+│   ├── chinese-author-alignment.md
+│   ├── comment-taxonomy.md
+│   ├── difficult-cases.md
+│   ├── intake-and-routing.md
+│   ├── qa-checklist.md
+│   ├── response-structure.md
+│   ├── source-basis.md
+│   └── tone-and-stance.md
+├── tests/
+    ├── conflicting-reviewers.md
+    ├── defensive-draft-audit.md
+    ├── evaluation-summary.md
+    ├── impossible-experiment.md
+    ├── major-revision-missing-evidence.md
+    ├── minor-revision.md
+    └── rubric.md
+└── examples/
+    ├── conflicting-reviewers.md
+    ├── major-revision-with-missing-evidence.md
+    └── minor-revision.md
+```
+
+---
+
 ## nature-paper2ppt
 
 **What it does** — Turns a scientific paper, preprint, PDF, article text, abstract,
@@ -295,7 +350,6 @@ The following are documented gaps. Contributions welcome.
 | Candidate | Scope | Priority |
 |-----------|-------|----------|
 | `nature-stats` | Statistical reporting conventions for *Nature* (effect sizes, confidence intervals, p-value formatting, sample size statements) | High |
-| `nature-response` | Peer-review response letters — point-by-point reply structure, tone calibration, handling major vs. minor revisions | High |
 | `nature-methods` | Deep-dive Methods writing assistant — reproducibility checklist, forbidden phrases, ethical approval templates, supplementary organisation | Medium |
 | `nature-cover` | Cover letter drafting — hook paragraph, significance framing, fit-to-journal argument, ≤ 500-word limit | Medium |
 | `nature-review` | Writing a literature review or review article in *Nature Reviews* style — synthesis vs. summary, argument-led structure | Low |
