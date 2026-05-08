@@ -59,6 +59,35 @@ Use sources in this order:
 Prefer structured APIs for metadata and publisher pages for claim verification. If metadata and
 publisher page disagree, preserve the DOI and journal-page facts and flag the discrepancy.
 
+## Long-article strategy
+
+When the input text is longer than roughly 3000 characters (about 10+ segments), the skill must
+switch to a batched workflow to avoid timeout, context overflow, or incomplete results:
+
+1. **Auto-detect length.** Count segments after segmentation. If there are more than 10 segments,
+   switch to batch mode automatically.
+2. **Split by section.** Prefer splitting at paragraph double-line breaks or explicit section
+   headings (`Introduction`, `Results`, etc.) so each batch is a coherent unit, not arbitrary
+   sentence groups.
+3. **Process each batch independently.** Run the Python script once per batch using
+   `--batch-size` or `--max-segments`, OR split the text externally and call the script once per
+   chunk. Each call writes its own intermediate export file.
+4. **Merge results at the end.** After all batches finish, combine the intermediate files into one
+   final export. Deduplicate by DOI.
+5. **Minimize inline analysis.** For long articles, do NOT write detailed support-grade notes for
+   every single segment inline. Instead:
+   - Write a compact summary table (segment ID → best candidate → support grade).
+   - Point the user to the HTML visualization for full browsing.
+   - Only elaborate on segments where no candidate was found or evidence is contradictory.
+
+### Quick guide for Claude
+
+| Segments | Strategy |
+|---|---|
+| 1–10 | Run once, full inline analysis is fine. |
+| 11–25 | Use `--batch-size 10`. Write a compact summary table. Point to HTML. |
+| 26+ | Split by section. Run script per section with `--batch-size 10`. Compact summary + HTML only. |
+
 ## Workflow
 
 ### 1. Segment the text
@@ -119,6 +148,9 @@ Useful options:
 - `--per-segment 3`: number of citation candidates to keep per segment.
 - `--format enw|ris|zotero-rdf`: export format. If omitted and `--output-file` is set, infer from suffix.
 - `--mailto you@example.com`: use Crossref's polite pool.
+- `--batch-size 10`: process segments in batches of N. Each batch writes an incremental export file.
+- `--max-segments 20`: only process the first N segments. Useful for testing or section-by-section workflows.
+- `--sleep 0.3`: seconds between Crossref requests. Default is 0.3; raise to 1.0 if rate-limited.
 
 When the topic is biomedical or PubMed-indexed, also search PubMed with journal filters and
 compare results against Crossref. Use NCBI E-utilities rate limits and include `tool`/`email`
