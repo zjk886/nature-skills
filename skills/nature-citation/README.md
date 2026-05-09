@@ -12,6 +12,9 @@ This skill is bilingual-aware. It accepts Chinese manuscript text and citation r
 - maps each segment to candidate citations and suggested in-text insertion markers
 - exports one reference-manager file in `ENW`, `RIS`, or Zotero `RDF`
 - optionally builds JSON, TSV, Markdown, and HTML review artifacts for manual screening
+- supports long-article batch processing with partial checkpoints
+- retries transient Crossref failures instead of failing immediately
+- supports limiting one run to part of a long manuscript
 - supports DOI-only export when the user already knows which records should be included
 
 ## Source hierarchy
@@ -44,9 +47,26 @@ nature-citation/
 - screening whether a sentence has direct support, partial support, or only background support
 - producing an HTML review page where the user filters by year, selects citations, and downloads only the records they want
 
+## Long-text behavior
+
+This skill now has a safer path for long inputs such as a full Introduction or multi-paragraph text.
+
+- for short inputs, it still works as a normal one-pass citation search
+- for longer inputs, it can process segments in batches
+- after each batch, it writes a partial export checkpoint so progress is not lost if a later batch fails
+- transient Crossref failures are retried automatically
+
+Useful rules of thumb:
+
+- 1-10 segments: normal run
+- 11-25 segments: prefer batch mode
+- 26+ segments: prefer section-by-section runs
+
 ## Design intent
 
 The skill should prioritize defensibility over volume. It is designed to help the user find likely in-scope papers, not to pretend that metadata alone proves a claim. Every exported record should preserve real metadata, avoid fabricated fields, and make the evidence-review burden explicit.
+
+For long manuscripts, the design goal is not only citation quality but also run stability: fewer lost runs, smaller batches, and a reviewable checkpoint trail.
 
 ## Reference map
 
@@ -55,8 +75,18 @@ The skill should prioritize defensibility over volume. It is designed to help th
 - `ris-endnote.md`: ENW, RIS, and Zotero RDF export guidance
 - `scripts/nature_citation.py`: local CLI for segmentation, Crossref retrieval, export, and HTML review generation
 
+## Useful CLI options
+
+- `--batch-size 2`: process long text in smaller batches
+- `--max-segments 12`: cap the number of segments processed in one run
+- `--max-retries 2`: retry transient Crossref failures
+- `--sleep 0.3`: shorter default pause between requests
+- `--with-artifacts`: generate HTML, TSV, JSON, and Markdown review files
+
 ## Notes
 
 - Default output is a single reference-manager file; additional artifacts are opt-in.
 - `metadata-only candidate` means the abstract or full text still needs human review before citation.
 - The HTML review page can export selected references as `ENW`, `RIS`, or Zotero `RDF`.
+- For long texts, `--with-artifacts` is strongly recommended because the HTML browser is the easiest way to curate results.
+- Batch mode writes `.partial.enw` / `.partial.ris` / `.partial.rdf` checkpoints during the run before the final export is written.

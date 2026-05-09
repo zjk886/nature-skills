@@ -99,6 +99,7 @@ For each input text:
 - Preserve original order and stable segment IDs such as `S001`, `S002`, `S003`.
 - Skip obvious non-citable connective sentences unless the user asks to cite every sentence.
 - For very long text, process in batches but keep a single final mapping table.
+- If the input has more than about 10 segments, prefer batch mode.
 
 Default segmentation rules:
 
@@ -146,11 +147,21 @@ Useful options:
 - `--from-year 2018 --to-year 2026`: constrain publication dates.
 - `--rows 40`: raise for broad searches; keep top candidates manageable.
 - `--per-segment 3`: number of citation candidates to keep per segment.
+- `--batch-size 2`: process long text in smaller batches.
+- `--max-segments 12`: cap the number of segments processed in one run.
+- `--max-retries 2`: retry transient Crossref failures before skipping a query.
 - `--format enw|ris|zotero-rdf`: export format. If omitted and `--output-file` is set, infer from suffix.
 - `--mailto you@example.com`: use Crossref's polite pool.
 - `--batch-size 10`: process segments in batches of N. Each batch writes an incremental export file.
 - `--max-segments 20`: only process the first N segments. Useful for testing or section-by-section workflows.
 - `--sleep 0.3`: seconds between Crossref requests. Default is 0.3; raise to 1.0 if rate-limited.
+
+Long-article strategy:
+
+- 1-10 segments: run normally.
+- 11-25 segments: use batch mode and keep the HTML browser open for screening.
+- 26+ segments: split by section or subsection first, then run each part separately if needed.
+- For long texts, prefer the HTML browser for review and selection instead of relying only on inline notes.
 
 When the topic is biomedical or PubMed-indexed, also search PubMed with journal filters and
 compare results against Crossref. Use NCBI E-utilities rate limits and include `tool`/`email`
@@ -175,8 +186,8 @@ experimental claim when primary articles are available.
 Default behavior:
 
 - write one reference-manager file
-- ALWAYS also generate review artifacts (HTML/TSV/JSON/report) — use `--with-artifacts`
 - support publication time filters with `--from-year` and `--to-year`
+- for long or ambiguous texts, use `--with-artifacts` so the HTML browser is available
 
 Default file:
 
@@ -196,12 +207,11 @@ than fabricating them.
 
 ### 6. Optional review artifacts
 
-Generate review artifacts (HTML/TSV/JSON/report) for every run — they are the primary way the
-user browses, filters, and selects candidates:
+Generate review artifacts (HTML/TSV/JSON/report) for long or ambiguous runs. They are the primary
+way the user browses, filters, and selects candidates:
 
-- **ALWAYS use `--with-artifacts` when running the script.** The HTML browser is the most useful
-  output for the user to inspect and curate citations.
-- Always report the HTML visualization path prominently in your final answer (section 7).
+- Use `--with-artifacts` when the text is long, the query is broad, or the user needs manual curation.
+- Report the HTML visualization path prominently in your final answer when artifacts are enabled.
 - Generate TSV/JSON/report alongside the HTML so the user has multiple views.
 
 ### 7. Report results
@@ -231,6 +241,9 @@ S001: [source segment]
 Put the HTML browser path FIRST in the report, above everything else, so the user can immediately
 open and browse candidates. If no suitable CNS/Nature-series paper exists, say so plainly and
 suggest the best nearby options from non-CNS literature only if the user wants broader coverage.
+
+If the text is long, mention the batch strategy used, especially when you limited the run with
+`--batch-size` or `--max-segments`.
 
 ## Search quality rules
 

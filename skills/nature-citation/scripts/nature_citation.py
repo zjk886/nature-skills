@@ -18,7 +18,7 @@ import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 from xml.sax.saxutils import escape as xml_escape
@@ -331,6 +331,48 @@ def export_label(export_format: str) -> str:
     if export_format == "zotero-rdf":
         return "Zotero RDF"
     return "ENW"
+
+
+def make_partial_path(path: Path) -> Path:
+    return path.with_name(f"{path.stem}.partial{path.suffix}")
+
+
+def retry_with_backoff(action: Callable[[], Any], max_retries: int, base_delay: float = 0.5) -> Any:
+    last_error: Exception | None = None
+    retries = max(0, max_retries)
+    for attempt in range(retries + 1):
+        try:
+            return action()
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            if attempt >= retries:
+                break
+            time.sleep(base_delay * (2 ** attempt))
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("retry_with_backoff() exited without returning or raising")
+
+
+def resolve_batch_size(segment_count: int, args: argparse.Namespace) -> int:
+    if getattr(args, "batch_size", 0) and args.batch_size > 0:
+        return max(1, args.batch_size)
+    if segment_count > 10:
+        return 10
+    return 0
+
+
+def chunk_segments(segments: list[Segment], batch_size: int) -> list[list[Segment]]:
+    if not segments:
+        return []
+    if batch_size <= 0 or batch_size >= len(segments):
+        return [segments]
+    return [segments[idx : idx + batch_size] for idx in range(0, len(segments), batch_size)]
+
+
+def limit_segments(segments: list[Segment], max_segments: int) -> tuple[list[Segment], int]:
+    if max_segments and max_segments > 0 and len(segments) > max_segments:
+        return segments[:max_segments], len(segments) - max_segments
+    return segments, 0
 
 
 def zotero_date_value(item: Candidate) -> str:
@@ -856,12 +898,15 @@ def search_segment(segment: Segment, args: argparse.Namespace) -> tuple[list[Can
             continue
         seen_queries.add(normalized_query)
         try:
-            items = fetch_crossref(
-                query,
-                rows=args.rows,
-                mailto=args.mailto,
-                from_year=args.from_year,
-                to_year=args.to_year,
+            items = retry_with_backoff(
+                lambda: fetch_crossref(
+                    query,
+                    rows=args.rows,
+                    mailto=args.mailto,
+                    from_year=args.from_year,
+                    to_year=args.to_year,
+                ),
+                max_retries=args.max_retries,
             )
         except Exception as exc:  # noqa: BLE001
             errors.append({"segment_id": segment.id, "query": query, "error": str(exc)})
@@ -895,12 +940,94 @@ def build_mapping(segments: list[Segment], args: argparse.Namespace) -> tuple[li
     return mapping, dedupe(all_candidates), errors
 
 
+def summarize_mapping(mapping: list[dict[str, Any]], references: list[Candidate], errors: list[dict[str, str]]) -> str:
+    return (
+        f"segments={len(mapping)} "
+        f"references={len(references)} "
+        f"errors={len(errors)}"
+    )
+
+
+def write_export_checkpoint(
+    outdir: Path,
+    base_path: Path,
+    export_format: str,
+    references: list[Candidate],
+) -> Path:
+    partial_output = make_partial_path(base_path)
+    if export_format == "enw":
+        write_enw(references, partial_output)
+    elif export_format == "ris":
+        write_ris(references, partial_output)
+    else:
+        write_zotero_rdf(references, partial_output)
+    return partial_output
+
+
+def write_final_artifacts(
+    mapping: list[dict[str, Any]],
+    references: list[Candidate],
+    outdir: Path,
+    output_path: Path,
+    args: argparse.Namespace,
+    errors: list[dict[str, str]],
+    skipped_segments: int = 0,
+) -> tuple[Path, Path, Path, Path]:
+    artifact_base = outdir / (output_path.stem if output_path.stem else "citation")
+    json_payload = mapping_to_json(mapping, references, args, errors)
+    if skipped_segments:
+        json_payload["notes"].append(f"Skipped {skipped_segments} segment(s) because --max-segments was set.")
+    json_path = artifact_base.with_suffix(".json")
+    tsv_path = artifact_base.with_suffix(".tsv")
+    report_path = artifact_base.with_suffix(".md")
+    html_path = artifact_base.with_suffix(".html")
+    json_path.write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    write_mapping_tsv(mapping, tsv_path)
+    write_report(mapping, report_path, args.scope, len(references), args.format, output_path.name)
+    write_html(mapping, references, outdir, html_path, output_path, args.format)
+    return json_path, tsv_path, report_path, html_path
+
+
+def process_segment_batches(
+    segments: list[Segment],
+    args: argparse.Namespace,
+    outdir: Path,
+    base_path: Path,
+) -> tuple[list[dict[str, Any]], list[Candidate], list[dict[str, str]]]:
+    batch_size = resolve_batch_size(len(segments), args)
+    batches = chunk_segments(segments, batch_size)
+    mapping: list[dict[str, Any]] = []
+    references: list[Candidate] = []
+    errors: list[dict[str, str]] = []
+    if not batches:
+        return mapping, references, errors
+
+    for batch_index, batch in enumerate(batches, 1):
+        print(
+            f"Processing batch {batch_index}/{len(batches)}: segments {batch[0].order}-{batch[-1].order} ({len(batch)} segments)..."
+        )
+        batch_mapping, batch_references, batch_errors = build_mapping(batch, args)
+        mapping.extend(batch_mapping)
+        references = dedupe([*references, *batch_references])
+        errors.extend(batch_errors)
+        partial_output = write_export_checkpoint(outdir, base_path, args.format, references)
+        print(
+            f"  Batch {batch_index} done: {sum(len(entry['references']) for entry in batch_mapping)} candidates, "
+            f"cumulative {len(references)} unique refs."
+        )
+        print(f"  Checkpoint saved: {partial_output}")
+    return mapping, references, errors
+
+
 def fetch_doi_candidates(dois: list[str], args: argparse.Namespace) -> tuple[list[Candidate], list[dict[str, str]]]:
     candidates: list[Candidate] = []
     errors: list[dict[str, str]] = []
     for doi in dois:
         try:
-            item = fetch_crossref_doi(doi, mailto=args.mailto)
+            item = retry_with_backoff(
+                lambda: fetch_crossref_doi(doi, mailto=args.mailto),
+                max_retries=args.max_retries,
+            )
         except Exception as exc:  # noqa: BLE001
             errors.append({"doi": doi, "error": str(exc)})
             continue
@@ -1808,12 +1935,13 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--citations-per-segment", type=int, default=2, help="Markers to include in suggested insert text.")
     parser.add_argument("--segment-chars", type=int, default=700, help="Split paragraphs longer than this many characters.")
     parser.add_argument("--max-candidates", type=int, default=80, help="Maximum deduplicated references to export.")
+    parser.add_argument("--max-segments", type=int, help="Limit the number of segments processed in a single run.")
+    parser.add_argument("--batch-size", type=int, help="Process segments in batches of this size.")
+    parser.add_argument("--max-retries", type=int, default=2, help="Maximum retry count for Crossref requests.")
     parser.add_argument("--from-year", type=int, help="Earliest publication year.")
     parser.add_argument("--to-year", type=int, help="Latest publication year.")
     parser.add_argument("--mailto", help="Email for Crossref polite pool.")
     parser.add_argument("--sleep", type=float, default=0.3, help="Seconds between Crossref requests.")
-    parser.add_argument("--batch-size", type=int, default=0, help="Process segments in batches of N. 0 = no batching.")
-    parser.add_argument("--max-segments", type=int, default=0, help="Only process the first N segments. 0 = all segments.")
     return parser.parse_args(argv)
 
 
@@ -1842,42 +1970,8 @@ def main(argv: list[str]) -> int:
     if output_path is None:
         output_path = outdir / export_filename(args.format, base=name_base or "references")
 
-    # 限制最大段落数
-    if args.max_segments > 0:
-        segments = segments[: args.max_segments]
-
-    # 分批处理
-    batch_size = args.batch_size if args.batch_size > 0 else len(segments)
-    all_mapping: list[dict[str, Any]] = []
-    all_references: list[Candidate] = []
-    all_errors: list[dict[str, str]] = []
-    total_batches = (len(segments) + batch_size - 1) // batch_size
-
-    for batch_idx in range(total_batches):
-        start = batch_idx * batch_size
-        end = min(start + batch_size, len(segments))
-        batch_segments = segments[start:end]
-        batch_label = f"batch {batch_idx + 1}/{total_batches}" if total_batches > 1 else "all segments"
-        print(f"Processing {batch_label}: segments {start + 1}-{end} ({len(batch_segments)} segments)...", file=sys.stderr)
-
-        batch_mapping, batch_refs, batch_errors = build_mapping(batch_segments, args)
-        all_mapping.extend(batch_mapping)
-        all_references.extend(batch_refs)
-        all_errors.extend(batch_errors)
-
-        # 每批完成后写入增量结果，避免中途失败丢失全部进度
-        if total_batches > 1:
-            interim_refs = dedupe(all_references)[: args.max_candidates]
-            interim_path = outdir / f"{name_base or 'references'}_batch{batch_idx + 1}.{args.format if args.format != 'zotero-rdf' else 'rdf'}"
-            if args.format == "enw":
-                write_enw(interim_refs, interim_path)
-            elif args.format == "ris":
-                write_ris(interim_refs, interim_path)
-            else:
-                write_zotero_rdf(interim_refs, interim_path)
-            print(f"  Batch {batch_idx + 1} done: {len(batch_refs)} candidates, cumulative {len(interim_refs)} unique refs.", file=sys.stderr)
-
-    # DOI 补充搜索
+    segments, skipped_segments = limit_segments(segments, args.max_segments or 0)
+    mapping, references, errors = process_segment_batches(segments, args, outdir, output_path)
     doi_candidates, doi_errors = fetch_doi_candidates(dois, args)
     all_errors.extend(doi_errors)
     references = dedupe([*all_references, *doi_candidates])[: args.max_candidates]
@@ -1892,18 +1986,24 @@ def main(argv: list[str]) -> int:
 
     if args.with_artifacts:
         artifact_base = outdir / name_base if name_base else outdir / "citation"
-        json_payload = mapping_to_json(all_mapping, references, args, all_errors)
-        (artifact_base.with_suffix(".json")).write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        write_mapping_tsv(all_mapping, artifact_base.with_suffix(".tsv"))
-        write_report(all_mapping, artifact_base.with_suffix(".md"), args.scope, len(references), args.format, output_path.name)
-        write_html(all_mapping, references, outdir, artifact_base.with_suffix(".html"), output_path, args.format)
+        json_path, tsv_path, report_path, html_path = write_final_artifacts(
+            mapping,
+            references,
+            outdir,
+            output_path,
+            args,
+            errors,
+            skipped_segments=skipped_segments,
+        )
+        print(f"Artifacts: {html_path}, {tsv_path}, {json_path}, {report_path}")
 
     print(f"Reference output: {output_path}")
     print(f"Export format: {args.format} ({export_label(args.format)})")
     print(f"Unique references exported: {len(references)}")
-    print(f"Segments processed: {len(all_mapping)} (batches: {total_batches})")
-    if all_errors and args.with_artifacts:
-        print(f"Encountered {len(all_errors)} retrieval error(s); see segment_reference_map.json.", file=sys.stderr)
+    if skipped_segments:
+        print(f"Segments skipped: {skipped_segments}")
+    if errors and args.with_artifacts:
+        print(f"Encountered {len(errors)} retrieval error(s); see segment_reference_map.json.", file=sys.stderr)
     return 0
 
 
