@@ -626,7 +626,7 @@ def crossref_headers(mailto: str | None = None) -> dict[str, str]:
     return {"User-Agent": USER_AGENT if not mailto else f"codex-nature-citation/1.0 (mailto:{mailto})"}
 
 
-def fetch_crossref(query: str, rows: int, mailto: str | None = None, from_year: int | None = None, to_year: int | None = None) -> list[dict[str, Any]]:
+def fetch_crossref(query: str, rows: int, mailto: str | None = None, from_year: int | None = None, to_year: int | None = None, retries: int = 2) -> list[dict[str, Any]]:
     filters = ["type:journal-article"]
     if from_year is not None:
         filters.append(f"from-pub-date:{from_year}-01-01")
@@ -644,9 +644,17 @@ def fetch_crossref(query: str, rows: int, mailto: str | None = None, from_year: 
         params["mailto"] = mailto
     url = f"{CROSSREF_API}?{urlencode(params)}"
     req = Request(url, headers=crossref_headers(mailto))
-    with urlopen(req, timeout=30) as response:
-        payload = json.loads(response.read().decode("utf-8"))
-    return payload.get("message", {}).get("items", [])
+    last_exc: Exception | None = None
+    for attempt in range(1, retries + 2):
+        try:
+            with urlopen(req, timeout=30) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            return payload.get("message", {}).get("items", [])
+        except Exception as exc:  # noqa: BLE001
+            last_exc = exc
+            if attempt <= retries:
+                time.sleep(min(2 ** attempt, 8))
+    raise last_exc  # type: ignore[misc]
 
 
 def fetch_crossref_doi(doi: str, mailto: str | None = None) -> dict[str, Any]:
@@ -1965,9 +1973,10 @@ def main(argv: list[str]) -> int:
     segments, skipped_segments = limit_segments(segments, args.max_segments or 0)
     mapping, references, errors = process_segment_batches(segments, args, outdir, output_path)
     doi_candidates, doi_errors = fetch_doi_candidates(dois, args)
-    errors.extend(doi_errors)
-    references = dedupe([*references, *doi_candidates])[: args.max_candidates]
+    all_errors.extend(doi_errors)
+    references = dedupe([*all_references, *doi_candidates])[: args.max_candidates]
 
+    # 最终导出
     if args.format == "enw":
         write_enw(references, output_path)
     elif args.format == "ris":
