@@ -1,72 +1,21 @@
 # nature-skills 
-<table>
-  <tr>
-    <td width="58%" valign="top">
-
-<table>
-  <tr>
-    <td width="58%" valign="top">
-
-<h1>医学 AI 科研团队招募</h1>
-
-<p>哈喽大家好，帮老师代发一个课题组招募帖。<br>
-欢迎对 <strong>前沿 AI 交叉学科</strong> 感兴趣的同学看过来！</p>
-
-<h2>📌 研究方向</h2>
-
-<p>我们是一个深耕 <strong>医学 AI</strong> 领域的科研团队。目前组内有着非常活跃的学术氛围，计算资源充足。</p>
-
-<p>为了保持一点神秘感，也为了避免太像硬广，这里暂不明确具体课题组名称。但如果你对 <strong>AI 赋能医疗</strong> 的交叉方向充满热情，这里绝对是一个能让你做出扎实科研工作的地方！</p>
-
-<h2>🔬 研究内容</h2>
-
-<p>目前团队的核心研究紧跟 AI 前沿，主要围绕以下几个技术方向展开：</p>
-
-<ul>
-  <li><strong>大语言模型（LLM）</strong> 在医疗垂直领域的深度探索与应用</li>
-  <li><strong>Vision 预训练与微调（Fine-tuning）</strong> 技术</li>
-  <li>高效的 <strong>Prompt Engineering</strong> 策略设计</li>
-  <li>自动化 <strong>AI Agent</strong> 构建及其在复杂医疗场景下的落地</li>
-</ul>
-
-<h2>💡 我们希望你</h2>
-
-<ul>
-  <li>对上述一个或多个方向有浓厚兴趣</li>
-  <li>有相关代码基础或项目经验者优先</li>
-  <li>更看重学习能力、自驱力和科研热情</li>
-  <li>想要产出高质量科研成果</li>
-  <li>希望在医学与 AI 的前沿交叉方向积累实战经验</li>
-</ul>
-
-<h2>📮 联系方式</h2>
-
-<p>如果你觉得方向契合，或者想进一步了解我们具体在做的课题，欢迎把个人基本信息发送至邮箱：</p>
-
-<p><strong>sjtu520aimedws@163.com</strong></p>
-
-<p>可以包括：</p>
-
-<ul>
-  <li>简单简历</li>
-  <li>专业背景</li>
-  <li>掌握的技术栈</li>
-  <li>相关项目或科研经历</li>
-</ul>
-
-<p>邮件标题建议格式：</p>
-
-<p><code>姓名-专业-医学AI科研申请</code></p>
-
-<p>收到后我们会尽快回复大家，期待你的加入！</p>
-
+<table style="border: none; width: 100%;">
+  <tr style="border: none;">
+    <td style="width: 66%; border: none; vertical-align: top; padding-right: 20px;">
+      还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现正向对 “医学 + AI” 充满热情的你发出邀请！<br><br>
+      这里不仅有充足的计算资源支持，更有一群活跃在学术前沿、深耕<strong>医疗大模型（LLM）、视觉预训练与微调、Prompt Engineering 以及 自动化医疗 AI Agent</strong> 的小伙伴。无论你是想在垂直领域探索大模型的深度应用，还是致力于构建能解决复杂医疗场景问题的智能体，我们更看重你的自驱力、学习能力与对科研产出的极致追求。<br><br>
+      如果你拥有相关代码基础或项目经验，并渴望在顶级交叉学科中积累实战成果，欢迎将个人简历、技术栈及科研经历发送至：<br>
+      📧 <strong>sjtu520aimedws@163.com</strong><br>
+      （建议邮件标题：姓名-专业-医学AI科研申请）<br><br>
+      让我们一起在 AI 赋能医疗的征途中，做出最扎实的科研工作，期待优秀的你加入！
     </td>
-
-    <td width="42%" valign="top" align="center">
-      <img width="360" alt="医学AI科研团队招募二维码" src="https://github.com/user-attachments/assets/22c84dd1-8280-419f-bbab-2866e346e555" />
+    <td style="width: 33%; border: none; vertical-align: top; text-align: center;">
+      <strong>实习生答疑群聊：</strong><br>
+      <img width="100%" alt="实习生答疑群聊二维码" src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" style="max-width: 300px; margin-top: 10px;" />
     </td>
   </tr>
 </table>
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Yuan1z0825/nature-skills&type=Date&cache_bust=2026-05-10T10)](https://star-history.com/#Yuan1z0825/nature-skills&Date)
