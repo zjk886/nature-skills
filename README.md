@@ -1,20 +1,19 @@
 # nature-skills 
 ## 📢 课题组诚招“医学 + AI”实习生
 
-<table border="0">
+<table border="0" cellpadding="10" cellspacing="0">
   <tr>
-    <td width="66%" valign="top" style="border: none;">
-      还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现正向对 “医学 + AI” 充满热情的你发出邀请！<br><br>
-      这里不仅有充足的计算资源支持，更有一群活跃在学术前沿、深耕 <strong>医疗大模型（LLM）、视觉预训练与微调、Prompt Engineering 以及 自动化医疗 AI Agent</strong> 的小伙伴。
-      无论你是想在垂直领域探索大模型的深度应用，还是致力于构建能解决复杂医疗场景问题的智能体，我们更看重你的<strong>自驱力、学习能力与对科研产出的极致追求</strong>。
-      如果你拥有相关代码基础或项目经验，并渴望在顶级交叉学科中积累实战成果，欢迎将个人简历、技术栈及科研经历发送至：<br>
-      📧 <strong><a href="mailto:sjtu520aimedws@163.com">sjtu520aimedws@163.com</a></strong><br>
-      <em>（建议标题：姓名-专业-医学AI科研申请）</em><br><br>
-      让我们一起在 AI 赋能医疗的征途中，做出最扎实的科研工作，期待优秀的你加入！
+    <td width="66%" valign="top" style="border: none; line-height: 1.6;">
+      还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现向对“医学 + AI”充满热情的你发出邀请！<br><br>
+      这里有充足的计算资源，以及深耕医疗大模型（LLM）、视觉预训练、Prompt Engineering 及自动化医疗 AI Agent 的科研团队。我们更看重你的<strong>自驱力、学习能力与科研产出追求</strong>。<br><br>
+      如果你有相关代码基础或项目经验，渴望在顶级交叉学科中积累成果，请将简历发送至：<br>
+      📧 <strong><a href="mailto:sjtu520aimedws@163.com" style="text-decoration: none; color: #0056b3;">sjtu520aimedws@163.com</a></strong><br>
+      <small>（标题格式：姓名-专业-医学AI科研申请）</small><br><br>
+      期待与你在 AI 赋能医疗的征途中，做出最扎实的科研工作！
     </td>
-    <td width="33%" valign="top" align="center" style="border: none;">
-      <strong>实习生答疑群聊</strong><br>
-      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:200px; margin-top:10px;">
+    <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <span style="font-size: 14px; color: #666;">实习生答疑群聊</span><br>
+      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
     </td>
   </tr>
 </table>
