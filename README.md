@@ -3,58 +3,70 @@
   <tr>
     <td width="58%" valign="top">
 
-# 医学 AI 科研团队招募
+<table>
+  <tr>
+    <td width="58%" valign="top">
 
-哈喽大家好，帮老师代发一个课题组招募帖。  
-欢迎对 **前沿 AI 交叉学科** 感兴趣的同学看过来！
+<h1>医学 AI 科研团队招募</h1>
 
-## 📌 研究方向
+<p>哈喽大家好，帮老师代发一个课题组招募帖。<br>
+欢迎对 <strong>前沿 AI 交叉学科</strong> 感兴趣的同学看过来！</p>
 
-我们是一个深耕 **医学 AI** 领域的科研团队。  
-目前组内有着非常活跃的学术氛围，计算资源充足。
+<h2>📌 研究方向</h2>
 
-为了保持一点神秘感，也为了避免太像硬广，这里暂不明确具体课题组名称。  
-但如果你对 **AI 赋能医疗** 的交叉方向充满热情，这里绝对是一个能让你做出扎实科研工作的地方！
+<p>我们是一个深耕 <strong>医学 AI</strong> 领域的科研团队。目前组内有着非常活跃的学术氛围，计算资源充足。</p>
 
-## 🔬 研究内容
+<p>为了保持一点神秘感，也为了避免太像硬广，这里暂不明确具体课题组名称。但如果你对 <strong>AI 赋能医疗</strong> 的交叉方向充满热情，这里绝对是一个能让你做出扎实科研工作的地方！</p>
 
-目前团队的核心研究紧跟 AI 前沿，主要围绕以下几个技术方向展开：
+<h2>🔬 研究内容</h2>
 
-- **大语言模型（LLM）** 在医疗垂直领域的深度探索与应用
-- **Vision 预训练与微调（Fine-tuning）** 技术
-- 高效的 **Prompt Engineering** 策略设计
-- 自动化 **AI Agent** 构建及其在复杂医疗场景下的落地
+<p>目前团队的核心研究紧跟 AI 前沿，主要围绕以下几个技术方向展开：</p>
 
-## 💡 我们希望你
+<ul>
+  <li><strong>大语言模型（LLM）</strong> 在医疗垂直领域的深度探索与应用</li>
+  <li><strong>Vision 预训练与微调（Fine-tuning）</strong> 技术</li>
+  <li>高效的 <strong>Prompt Engineering</strong> 策略设计</li>
+  <li>自动化 <strong>AI Agent</strong> 构建及其在复杂医疗场景下的落地</li>
+</ul>
 
-- 对上述一个或多个方向有浓厚兴趣
-- 有相关代码基础或项目经验者优先
-- 更看重学习能力、自驱力和科研热情
-- 想要产出高质量科研成果
-- 希望在医学与 AI 的前沿交叉方向积累实战经验
+<h2>💡 我们希望你</h2>
 
-## 📮 联系方式
+<ul>
+  <li>对上述一个或多个方向有浓厚兴趣</li>
+  <li>有相关代码基础或项目经验者优先</li>
+  <li>更看重学习能力、自驱力和科研热情</li>
+  <li>想要产出高质量科研成果</li>
+  <li>希望在医学与 AI 的前沿交叉方向积累实战经验</li>
+</ul>
 
-如果你觉得方向契合，或者想进一步了解我们具体在做的课题，欢迎把个人基本信息发送至邮箱：
+<h2>📮 联系方式</h2>
 
-**sjtu520aimedws@163.com**
+<p>如果你觉得方向契合，或者想进一步了解我们具体在做的课题，欢迎把个人基本信息发送至邮箱：</p>
 
-可以包括：
+<p><strong>sjtu520aimedws@163.com</strong></p>
 
-- 简单简历
-- 专业背景
-- 掌握的技术栈
-- 相关项目或科研经历
+<p>可以包括：</p>
 
-邮件标题建议格式：
+<ul>
+  <li>简单简历</li>
+  <li>专业背景</li>
+  <li>掌握的技术栈</li>
+  <li>相关项目或科研经历</li>
+</ul>
 
-```text
-姓名-专业-医学AI科研申请
-收到后我们会尽快回复大家，期待你的加入！
+<p>邮件标题建议格式：</p>
 
-</td> <td width="42%" valign="top"> <img width="1146" height="1611" alt="image" src="https://github.com/user-attachments/assets/22c84dd1-8280-419f-bbab-2866e346e555" /> </td> </tr> </table> ```
----
+<p><code>姓名-专业-医学AI科研申请</code></p>
 
+<p>收到后我们会尽快回复大家，期待你的加入！</p>
+
+    </td>
+
+    <td width="42%" valign="top" align="center">
+      <img width="360" alt="医学AI科研团队招募二维码" src="https://github.com/user-attachments/assets/22c84dd1-8280-419f-bbab-2866e346e555" />
+    </td>
+  </tr>
+</table>
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Yuan1z0825/nature-skills&type=Date&cache_bust=2026-05-10T10)](https://star-history.com/#Yuan1z0825/nature-skills&Date)
