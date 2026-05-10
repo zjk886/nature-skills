@@ -1,8 +1,58 @@
 # nature-skills 
-| Overview | Community |
-| :--- | :---: |
-| **Welcome! Let's co-create nature-skills.**<br><br>A growing collection of Claude skills for producing academic work at *Nature*-journal standard.<br><br>Currently covering scientific figures, manuscript prose, data availability, and paper-to-presentation workflows; future releases may add related tasks such as statistical reporting, peer‑review responses, and methods writing.<br><br>**Our philosophy** — Every skill in this collection shares a common philosophy: rules are derived from **primary sources** (published *Nature* papers, journal author guidelines, and structured writing curricula), not from general style intuition. | <img width="200" src="https://github.com/user-attachments/assets/c7e93192-5a45-49dd-82b9-8a5fe90b8025" /><br><br>*The group is currently full. Please contact the administrator if you’d like to join.* |
+<table>
+  <tr>
+    <td width="58%" valign="top">
 
+# 医学 AI 科研团队招募
+
+哈喽大家好，帮老师代发一个课题组招募帖。  
+欢迎对 **前沿 AI 交叉学科** 感兴趣的同学看过来！
+
+## 📌 研究方向
+
+我们是一个深耕 **医学 AI** 领域的科研团队。  
+目前组内有着非常活跃的学术氛围，计算资源充足。
+
+为了保持一点神秘感，也为了避免太像硬广，这里暂不明确具体课题组名称。  
+但如果你对 **AI 赋能医疗** 的交叉方向充满热情，这里绝对是一个能让你做出扎实科研工作的地方！
+
+## 🔬 研究内容
+
+目前团队的核心研究紧跟 AI 前沿，主要围绕以下几个技术方向展开：
+
+- **大语言模型（LLM）** 在医疗垂直领域的深度探索与应用
+- **Vision 预训练与微调（Fine-tuning）** 技术
+- 高效的 **Prompt Engineering** 策略设计
+- 自动化 **AI Agent** 构建及其在复杂医疗场景下的落地
+
+## 💡 我们希望你
+
+- 对上述一个或多个方向有浓厚兴趣
+- 有相关代码基础或项目经验者优先
+- 更看重学习能力、自驱力和科研热情
+- 想要产出高质量科研成果
+- 希望在医学与 AI 的前沿交叉方向积累实战经验
+
+## 📮 联系方式
+
+如果你觉得方向契合，或者想进一步了解我们具体在做的课题，欢迎把个人基本信息发送至邮箱：
+
+**sjtu520aimedws@163.com**
+
+可以包括：
+
+- 简单简历
+- 专业背景
+- 掌握的技术栈
+- 相关项目或科研经历
+
+邮件标题建议格式：
+
+```text
+姓名-专业-医学AI科研申请
+收到后我们会尽快回复大家，期待你的加入！
+
+</td> <td width="42%" valign="top"> <img width="1146" height="1611" alt="image" src="https://github.com/user-attachments/assets/22c84dd1-8280-419f-bbab-2866e346e555" /> </td> </tr> </table> ```
 ---
 
 ## Star History
