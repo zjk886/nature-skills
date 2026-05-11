@@ -1,7 +1,24 @@
-# nature-skills 
-| Overview | Community |
-| :--- | :---: |
-| **Welcome! Let's co-create nature-skills.**<br><br>A growing collection of Claude skills for producing academic work at *Nature*-journal standard.<br><br>Currently covering scientific figures, manuscript prose, data availability, full-paper markdown reading, and paper-to-presentation workflows; future releases may add related tasks such as statistical reporting, peer‑review responses, and methods writing.<br><br>**Our philosophy** — Every skill in this collection shares a common philosophy: rules are derived from **primary sources** (published *Nature* papers, journal author guidelines, and structured writing curricula), not from general style intuition. | <img width="200" src="https://github.com/user-attachments/assets/c7e93192-5a45-49dd-82b9-8a5fe90b8025" /><br><br>*The group is currently full. Please contact the administrator if you’d like to join.* |
+# nature-skills
+
+## 📢 课题组诚招“医学 + AI”实习生
+
+<table border="0" cellpadding="10" cellspacing="0">
+  <tr>
+    <td width="66%" valign="top" style="border: none; line-height: 1.6;">
+      还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现向对“医学 + AI”充满热情的你发出邀请！<br><br>
+      这里有充足的计算资源，以及深耕医疗大模型（LLM）、视觉预训练、Prompt Engineering 及自动化医疗 AI Agent 的科研团队。我们更看重你的<strong>自驱力、学习能力与科研产出追求</strong>。<br><br>
+      项目信息文档链接：https://iigqjt2m4ia.feishu.cn/wiki/VIvDwHu18iTc6mk411xco8chnJb   密码：664#N926<br>
+      如果你有相关代码基础或项目经验，渴望在顶级交叉学科中积累成果，请将简历发送至：<br>
+      📧 <strong><a href="mailto:sjtu520aimedws@163.com" style="text-decoration: none; color: #0056b3;">sjtu520aimedws@163.com</a></strong><br>
+      <small>（标题格式：姓名-专业-医学AI科研申请）</small><br><br>
+      期待与你在 AI 赋能医疗的征途中，做出最扎实的科研工作！
+    </td>
+    <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <span style="font-size: 14px; color: #666;">实习生答疑群聊</span><br>
+      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -26,7 +43,7 @@ cd nature-skills
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R nature-polishing ~/.codex/skills/
+cp -R nature-reader ~/.codex/skills/
 ```
 
 **Install all current skills**
@@ -41,7 +58,7 @@ done
 **Finish**
 
 - Restart Codex so newly added skills are picked up.
-- Then ask naturally, for example: `Polish this abstract in Nature style.` or
+- Then ask naturally, for example: `Translate this paper into a full markdown reader.` or
   `Make this paper into a Chinese journal-club PPT.`
 
 If you prefer not to use the terminal, copying the `nature-*` folder(s) into
@@ -61,23 +78,23 @@ The recommended approach is to convert a skill into a **subagent**.
 
 ```bash
 mkdir -p ~/.claude/agents
-cp nature-polishing/SKILL.md ~/.claude/agents/nature-polishing.md
+cp nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
 ```
 
-Then open `~/.claude/agents/nature-polishing.md` and make sure the frontmatter is valid
+Then open `~/.claude/agents/nature-reader.md` and make sure the frontmatter is valid
 for Claude Code subagents:
 
 ```yaml
 ---
-name: nature-polishing
-description: Nature-style academic polishing for abstracts, manuscripts, cover letters, and Chinese-to-English scientific prose. Use proactively when the user asks for academic polishing.
+name: nature-reader
+description: Full-paper bilingual, figure-aware, source-grounded Markdown reader for journal or conference papers. Use proactively when the user asks to translate an entire paper or generate a complete markdown reader.
 ---
 ```
 
 After that, start a new Claude Code session or open `/agents`, and invoke it naturally or explicitly:
 
 ```text
-Use the nature-polishing subagent to rewrite this abstract.
+Use the nature-reader subagent to turn this PDF into a full markdown reader.
 ```
 
 If you prefer commands instead of subagents, create a project or user command under
@@ -106,24 +123,6 @@ In that case:
 1. Copy the whole skill directory into your prompt library or project.
 2. Preserve `SKILL.md` and any `references/` files together.
 3. Adapt the frontmatter and body to the target agent's native format if needed.
-
-<table border="0" cellpadding="10" cellspacing="0">
-  <tr>
-    <td width="66%" valign="top" style="border: none; line-height: 1.6;">
-      还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现向对“医学 + AI”充满热情的你发出邀请！<br><br>
-      这里有充足的计算资源，以及深耕医疗大模型（LLM）、视觉预训练、Prompt Engineering 及自动化医疗 AI Agent 的科研团队。我们更看重你的<strong>自驱力、学习能力与科研产出追求</strong>。<br><br>
-      项目信息文档链接：https://iigqjt2m4ia.feishu.cn/wiki/VIvDwHu18iTc6mk411xco8chnJb   密码：664#N926
-      如果你有相关代码基础或项目经验，渴望在顶级交叉学科中积累成果，请将简历发送至：<br>
-      📧 <strong><a href="mailto:sjtu520aimedws@163.com" style="text-decoration: none; color: #0056b3;">sjtu520aimedws@163.com</a></strong><br>
-      <small>（标题格式：姓名-专业-医学AI科研申请）</small><br><br>
-      期待与你在 AI 赋能医疗的征途中，做出最扎实的科研工作！
-    </td>
-    <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
-      <span style="font-size: 14px; color: #666;">实习生答疑群聊</span><br>
-      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
-    </td>
-  </tr>
-</table>
 
 ## Star History
 
