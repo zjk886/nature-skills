@@ -37,6 +37,7 @@ Examples in this repository:
 - `nature-figure`
 - `nature-citation`
 - `nature-data`
+- `nature-reader`
 - `nature-paper2ppt`
 - `nature-response`
 
@@ -240,12 +241,19 @@ Repeat the same pattern for other folders:
 - `nature-figure`
 - `nature-citation`
 - `nature-data`
+- `nature-reader`
 - `nature-paper2ppt`
 
 For example, a `nature-paper2ppt` wrapper should point to:
 
 ```text
 ~/ai-skills/nature-skills/skills/nature-paper2ppt/SKILL.md
+```
+
+The same pattern works for `nature-reader`:
+
+```text
+~/ai-skills/nature-skills/skills/nature-reader/SKILL.md
 ```
 
 ### 4.7 Update later
