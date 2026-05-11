@@ -7,7 +7,7 @@
     <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
       <span style="font-size: 14px; color: #666;">微信群聊</span><br>
       <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
-      <div style="margin-top:10px; font-size: 13px; color: #666;">罗小罗这个 agent 交流群</div>
+      <div style="margin-top:10px; font-size: 13px; color: #666;">答疑交流群！进群记得12小时内备注</div>
     </td>
     <td width="66%" valign="top" style="border: none; line-height: 1.6;">
       还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现向对“医学 + AI”充满热情的你发出邀请！<br><br>
