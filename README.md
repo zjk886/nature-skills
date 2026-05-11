@@ -4,7 +4,7 @@
 
 <table border="0" cellpadding="10" cellspacing="0">
   <tr>
-    <td width="66%" valign="top" style="border: none; line-height: 1.6;">
+    <td width="100%" valign="top" style="border: none; line-height: 1.6;">
       还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现向对“医学 + AI”充满热情的你发出邀请！<br><br>
       这里有充足的计算资源，以及深耕医疗大模型（LLM）、视觉预训练、Prompt Engineering 及自动化医疗 AI Agent 的科研团队。我们更看重你的<strong>自驱力、学习能力与科研产出追求</strong>。<br><br>
       项目信息文档链接：https://iigqjt2m4ia.feishu.cn/wiki/VIvDwHu18iTc6mk411xco8chnJb   密码：664#N926<br>
@@ -12,10 +12,6 @@
       📧 <strong><a href="mailto:sjtu520aimedws@163.com" style="text-decoration: none; color: #0056b3;">sjtu520aimedws@163.com</a></strong><br>
       <small>（标题格式：姓名-专业-医学AI科研申请）</small><br><br>
       期待与你在 AI 赋能医疗的征途中，做出最扎实的科研工作！
-    </td>
-    <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
-      <span style="font-size: 14px; color: #666;">实习生答疑群聊</span><br>
-      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
     </td>
   </tr>
 </table>
@@ -472,3 +468,16 @@ The following are documented gaps. Contributions welcome.
 | `nature-methods` | Deep-dive Methods writing assistant — reproducibility checklist, forbidden phrases, ethical approval templates, supplementary organisation | Medium |
 | `nature-cover` | Cover letter drafting — hook paragraph, significance framing, fit-to-journal argument, ≤ 500-word limit | Medium |
 | `nature-review` | Writing a literature review or review article in *Nature Reviews* style — synthesis vs. summary, argument-led structure | Low |
+
+---
+
+## 罗小罗这个 agent 交流群
+
+<table border="0" cellpadding="10" cellspacing="0">
+  <tr>
+    <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <span style="font-size: 14px; color: #666;">罗小罗这个 agent 交流群</span><br>
+      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
+    </td>
+  </tr>
+</table>
