@@ -241,18 +241,6 @@ Before final response, verify:
 If the input is a PDF, load the `pdf` skill first for extraction and OCR guidance.
 If the user asks for a richer browser view, use `web-artifacts-builder` or `frontend-design` only as a preview layer on top of the Markdown workflow.
 If the user wants citation-level grounding to original text, keep the source map explicit and do not lose the page or block IDs.
-If the user asks for a model backend, treat the provider as configurable and keep the prompt format provider-neutral.
-
-## Model backends
-
-Use official APIs from the provider the user has available. Prefer OpenAI-compatible chat or responses interfaces when they exist, because that keeps the paper reader portable across vendors.
-
-- `DeepSeek`: official OpenAI-compatible API at `https://api.deepseek.com`
-- `GLM / Zhipu`: official OpenAI-compatible API at `https://open.bigmodel.cn/api/paas/v4`
-- `Qwen / DashScope`: official OpenAI-compatible API at `https://dashscope.aliyuncs.com/compatible-mode/v1`
-- `Kimi / Moonshot`: official OpenAI-compatible API at `https://api.moonshot.cn/v1`
-
-Keep model names provider-specific, but keep the app contract the same: `base_url`, `api_key`, `model`, and chat-completions-style messages.
 
 ## Quality bar
 

@@ -15,7 +15,7 @@
     },
     {
       "id": 3,
-      "prompt": "这是一篇扫描版论文。请先做 OCR，再生成全文中英文对照 Markdown，保留图注和正文的对应关系；凡是识别不稳的地方都要标低置信度。图表需要裁剪到 assets 并放在对应正文位置，模型后端可以是 DeepSeek、GLM、Qwen 或 Kimi 的官方接口。",
+      "prompt": "这是一篇扫描版论文。请先做 OCR，再生成全文中英文对照 Markdown，保留图注和正文的对应关系；凡是识别不稳的地方都要标低置信度。图表需要裁剪到 assets 并放在对应正文位置。",
       "expected_output": "An OCR-aware full-document Markdown reader with Original/中文 pairs, uncertainty labels, cropped figure/table assets, nearby bilingual captions, page navigation, and source-linked follow-up support.",
       "files": []
     }
