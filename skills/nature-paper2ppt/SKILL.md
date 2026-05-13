@@ -390,6 +390,36 @@ Borrow Nature-style figure-page composition principles, but keep this skill self
 - Avoid decorative boxes, fake cards, and symmetrical two-column scaffolds unless the content truly calls for them.
 - If a figure would become unreadable when scaled down, crop it, split it, or move it to its own slide.
 
+### Typography system
+- Build a clear three-level hierarchy: title, body, caption/source. Do not let every text block look like the same font at slightly different sizes.
+- Use one Chinese sans-serif family for most copy and one English/number companion font for metrics, abbreviations, model names, DOI, and small metadata.
+- Prefer title sizes roughly in the 24-32 pt range, body copy in the 12-16 pt range, and source/caption text in the 7-9 pt range unless the template clearly calls for something else.
+- Let titles carry more weight than bullets. Large metrics may stand out, but they must not overpower the slide title or the main figure.
+- Keep captions and source labels lighter in color and smaller in size than the main argument text.
+- Avoid mixing many font families on one slide. One Chinese family plus one English/numeric companion is the default maximum.
+
+### Figure-text coordination
+- Do not let figures look pasted onto the page. Pair them with a clear shared field: a tight frame, a caption edge, an interpretation rail, or a short takeaway strip.
+- When a slide has one dominant figure, let the figure own about 55-75% of the slide area and keep the explanatory text to a narrow rail or short band.
+- Keep captions attached to the figure edge or inside a bottom caption band. Avoid detached caption text floating far from the visual.
+- Use 1-3 metric callouts or a short interpretation strip to help read the figure; do not surround the figure with many equal-weight boxes.
+- If the source figure is very dense, prefer a cropped hero panel plus one or two callouts over shrinking the entire figure and compensating with long bullets.
+- Use text to guide the reading order and interpretation of the figure, not to repeat every panel label in prose.
+
+### Page fullness rule
+- Slides should feel complete rather than empty. Most slides should have a stable top anchor, a dominant middle block, and a bottom anchor such as a takeaway strip, source strip, or conclusion line.
+- Add fullness through evidence-supporting elements: metric chips, compact interpretation bands, short source strips, or a narrow comparison block.
+- Avoid large unstructured blank areas caused by tiny figures, short bullets marooned in one corner, or captions that sit far from the visual.
+- If a slide still feels sparse after placing the main claim and figure, add one concise support layer before adding more bullets.
+- Do not fill space with decoration alone. Any added block should clarify hierarchy, guide reading order, or improve figure readability.
+
+### Slide archetype recipes
+- Hero figure result slide: 60-75% visual area, 20-30% interpretation rail, and a short takeaway band.
+- Workflow slide: one full-width or near-full-width process visual plus a compact annotation strip, not two equal columns of text and diagram.
+- Comparison slide: one chart or table block plus a slim metric or conclusion rail; split into two slides if the table becomes cramped.
+- Text-led synthesis slide: 2-4 strong bullets or 3 compact claim cards, plus one summary sentence or discussion strip at the bottom.
+- Cover slide: one dominant visual or typographic block, a small metadata band, and no dashboard-like grid of equally weighted mini-elements.
+
 # Citation and Attribution Rules
 Include source information:
 - title slide: paper title, authors if useful, journal/preprint server, year, DOI if available,
@@ -478,6 +508,8 @@ Skip the optional outline/script/figure-plan files by default unless they materi
 - Make every slide serve the paper's argument.
 - Ensure figures are readable at presentation scale.
 - Ensure text, captions, and figures do not overlap.
+- Ensure font hierarchy is consistent across slides and that figures, captions, and metrics feel visually related rather than independently placed.
+- Ensure the deck is not visually underfilled: empty regions should be intentional whitespace, not leftover template space from an undersized figure or text block.
 - Document uncertainty and missing source material clearly.
 
 # Fallback Rules
