@@ -1,19 +1,20 @@
 ---
 name: nature-reader
-description: Build full-text bilingual, figure-aware, source-grounded Markdown reading files for journal or conference papers from PDF, DOI, arXiv, publisher HTML, or pasted text. Use whenever the user asks to translate an entire paper, make a complete markdown reader, preserve figure or table placement near the relevant prose, or keep exact source anchors for every block. Do not use this for summaries, bullet-keyword notes, or citation-only tasks.
+description: Build full-paper Chinese-English side-by-side, figure/table-aware, source-grounded Markdown readers for journal or conference papers from PDF, DOI, arXiv, publisher HTML, or pasted text. Use whenever the user asks to translate or read a paper, make 中英文对照/原文对照/全文翻译解读, extract figures or tables into the right positions, preserve figure/table placement near relevant prose, or keep exact source anchors for every block. This skill must not degrade into a summary-only output unless the user explicitly asks for a summary.
 ---
 
 # Full-Paper Markdown Reader
 
 Use this skill to turn a research paper into a complete Markdown reading artifact.
 
-The default output should read like a paper companion, not a summary dump:
+The default output should read like a bilingual paper companion, not a summary dump:
 
-- keep the full prose, paragraph structure, and section flow
-- show original text and Chinese translation together
-- keep figures and tables close to the discussion that introduces them
+- keep the extractable prose, paragraph structure, and section flow
+- show original text and Chinese translation together at block level
+- extract figures and tables as assets and place them at the first substantive mention or interpretation point
+- keep captions attached to figures/tables with English caption text and Chinese caption translation
 - preserve stable page and block anchors for traceability
-- write a complete `paper.md` by default
+- write a complete `paper.md` by default, plus `source_map.json`, `translation_notes.md`, and `assets/`
 
 This skill is for papers, preprints, and conference proceedings across disciplines. It is not limited to Nature-family journals.
 
@@ -30,6 +31,20 @@ Use this skill when the user wants any of the following:
 
 If the user only wants a summary, use a summarization skill instead. If the user only wants citation search, use a citation skill instead.
 
+## Non-negotiable defaults
+
+When the user asks for paper translation, reading, `nature-reader`, `中英文对照`, `原文对照`, `全文翻译`, or `翻译解读`, produce a paragraph-level bilingual reader by default.
+
+Do not replace the reader with:
+
+- a Chinese-only summary
+- a paper review without original/translation alignment
+- figure captions without figure/table crops
+- a list of key points detached from source locations
+- only the abstract, introduction, or selected highlights
+
+If constraints prevent full processing, still create a draft reader and clearly label missing pages, missing figures/tables, untranslated blocks, or low-confidence OCR/crops in `translation_notes.md`.
+
 ## Core principle
 
 Translate for meaning, not for style. Preserve the paper's structure, evidence, hedging, terminology, equations, units, and citation markers. Keep the output in prose paragraphs unless the source itself is tabular or list-like. Do not collapse the paper into keyword bullets or slide-style notes.
@@ -40,6 +55,19 @@ The reading file should help a reader move between:
 - translated text
 - source location
 - figure or table evidence
+
+Each substantive source block should have a stable anchor and a visible bilingual pair:
+
+```markdown
+<a id="S001"></a>
+**Source:** p.1 S001
+
+**Original:** [source paragraph]
+
+**中文:** [faithful Chinese translation]
+```
+
+For copyrighted publisher PDFs, keep chat responses short and point to the local artifact. In local `paper.md`, include the bilingual reader only for the user-provided source file or clearly lawful open-access content; avoid reproducing large copyrighted text directly in chat.
 
 ## Workflow
 
@@ -80,7 +108,9 @@ For each block, capture:
 - block type
 - original text
 - translation
+- reading-order index
 - nearby figure or table references
+- first substantive figure/table mention when applicable
 - confidence level when extraction is uncertain
 
 Keep the source map stable so later questions can point back to the same IDs.
@@ -88,7 +118,7 @@ For long papers, add a page index so the reader can jump across the whole docume
 
 ### 3. Translate conservatively
 
-Translate each block with these rules:
+Translate every extractable substantive block with these rules:
 
 - preserve technical terms unless a standard Chinese equivalent is clearly better
 - keep gene names, protein names, formulas, model names, and symbols intact
@@ -97,19 +127,24 @@ Translate each block with these rules:
 - keep paragraph order and section order unless the user asks for restructuring
 - mark uncertain text instead of guessing when OCR or layout extraction is weak
 - keep the source's paragraph form; do not convert dense prose into bullet-point keywords
+- do not silently skip Methods, limitations, data availability, code availability, competing interests, or extended captions
+- if the paper is too long for one pass, write `paper.md` incrementally by page/section and mark pending blocks rather than switching to summary mode
 
 If a sentence contains multiple claims, keep the translation readable but do not split away the original evidence chain.
 
-### 4. Place figures and tables near the relevant discussion
+### 4. Extract and place figures and tables near the relevant discussion
 
 Do not try to recreate the PDF pixel-for-pixel. Preserve semantic proximity instead.
 
 Default placement rule:
 
-- show a figure near its first substantive mention in the body text
-- keep the caption attached to the figure
+- crop each figure/table into `assets/` and show it near its first substantive mention in the body text
+- keep the caption attached to the figure/table
+- show both original caption and Chinese caption translation
 - if the caption contains critical details, keep caption and figure together
 - if a table is central to the claim, keep it near the paragraph that interprets it
+- if a figure/table appears before the body discussion in PDF layout, still place it where it best supports the reading flow and add `Placed near: p.X SYYY`
+- if a later section mentions the same figure/table again, link back to the already inserted figure/table block instead of duplicating it
 
 If the paper has a complex multi-column layout, prefer a clean reading layout over exact visual mimicry.
 
@@ -125,17 +160,38 @@ When extracting a figure or table image:
 
 Precision matters more than convenience here. A slightly smaller but correct crop is better than a wider crop that includes unrelated page content.
 
+Figure/table blocks in `paper.md` should use this shape:
+
+```markdown
+<a id="F001"></a>
+### Fig. 1. [short translated title]
+
+**Placed near:** p.3 S012
+**Source:** p.4 C001
+
+![Fig. 1](assets/fig1.png)
+
+**Original caption:** [caption text]
+
+**中文图注:** [caption translation]
+
+**Reading note:** [brief explanation of what to inspect in the figure]
+```
+
 ### 5. Generate the Markdown file
 
 Default output is a single full-paper `paper.md` file.
 
-The Markdown should usually include:
+The Markdown must include:
 
 - metadata header
-- page-level sections for long papers
-- body prose in paragraph form
+- a short page/section index
+- page-level or section-level divisions for long papers
+- paragraph-level original/Chinese pairs for all extractable substantive text
 - figure and table blocks placed near the relevant discussion
-- clickable source anchors on every substantive block
+- source anchors on every substantive text, figure, caption, and table block
+- a terminology table for recurring technical terms
+- a short `阅读提示` / `critical reading notes` section only after the bilingual body, not as a replacement for it
 - short uncertainty notes only when extraction is weak
 
 Do not add an interactive Q&A panel or follow-up widget in the Markdown deliverable. If the user later asks a question, answer it in chat using the source map rather than embedding a conversational panel in the artifact.
@@ -171,6 +227,14 @@ Prefer these outputs:
 - `reader.html` only when the user explicitly wants a browser preview
 
 Do not hide missing information. If the source is incomplete, label the output as draft mode.
+
+Before final response, verify:
+
+- `paper.md` contains `**Original:**` and `**中文:**` block pairs
+- every image/table link used in `paper.md` exists under `assets/`
+- every figure/table in `assets/` has a corresponding Markdown block and source pointer
+- `source_map.json` parses as JSON and includes source block IDs
+- `translation_notes.md` records skipped, uncertain, or draft-mode content
 
 ## Tooling guidance
 
