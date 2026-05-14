@@ -15,6 +15,8 @@ user-facing output.
 
 Derived from production scripts in [figures4papers](https://github.com/ChenLiu-1996/figures4papers)
 (published in *Nature Machine Intelligence* and top ML/bioinformatics venues).
+The original figures4papers demo scripts and preview images are also bundled under
+`assets/figures4papers/` for pattern-level adaptation.
 
 ---
 
@@ -69,7 +71,8 @@ nature-figure/
 ├── README.md                    ← this file
 ├── assets/
 │   ├── gallery/                 ← result-figure preview PNGs
-│   └── chart-atlas/             ← chart-type taxonomy preview PNGs
+│   ├── chart-atlas/             ← chart-type taxonomy preview PNGs
+│   └── figures4papers/          ← original demo scripts and preview assets
 └── references/
     ├── figure-contract.md       ← core conclusion, evidence hierarchy, panel map
     ├── backend-selection.md     ← Python vs R decision rules
@@ -80,7 +83,8 @@ nature-figure/
     ├── design-theory.md         ← typography, color theory, layout, export policy
     ├── common-patterns.md       ← reusable code patterns (bars, legends, heatmaps)
     ├── tutorials.md             ← end-to-end walkthroughs
-    └── chart-types.md           ← radar, 3D sphere, scatter, fill_between, log-scale
+    ├── chart-types.md           ← radar, 3D sphere, scatter, fill_between, log-scale
+    └── demos.md                 ← figures4papers demo map and routing guide
 ```
 
 ---

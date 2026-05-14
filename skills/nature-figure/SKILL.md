@@ -1,7 +1,7 @@
 ---
 name: nature-figure
 description: >-
-  Submission-grade Nature/high-impact journal figure workflow for Python or R. Use whenever the user asks to create, revise, audit, or polish manuscript figures, multi-panel scientific plots, or journal-ready SVG/PDF/TIFF outputs, especially for Nature-family or other high-impact journals. Before plotting, define the figure's conclusion, evidence logic, export needs, and review risks. If the user has not chosen Python or R, ask "Python or R?" and stop. Use only the selected backend for figure generation, previewing, exporting, and QA. Supports matplotlib/seaborn and ggplot2/patchwork/ComplexHeatmap. Not for dashboards or Illustrator/Figma-first infographics.
+  Submission-grade Nature/high-impact journal figure workflow for Python or R. Use whenever the user asks to create, revise, audit, or polish manuscript figures, multi-panel scientific plots, figures4papers-style matplotlib plots, or journal-ready SVG/PDF/TIFF outputs, especially for Nature-family or other high-impact journals. Before plotting, define the figure's conclusion, evidence logic, export needs, and review risks. If the user has not chosen Python or R, ask "Python or R?" and stop. Use only the selected backend for figure generation, previewing, exporting, and QA. Supports matplotlib/seaborn and ggplot2/patchwork/ComplexHeatmap. Not for dashboards or Illustrator/Figma-first infographics.
 ---
 
 # Nature Figure Making Skill
@@ -153,12 +153,14 @@ save_pub_r <- function(plot, filename, width_mm = 183, height_mm = 120, dpi = 60
 - Treat statistics, `n`, error-bar definitions, source-data traceability, and image-integrity notes as part of the figure,
   not as optional caption cleanup.
 - When the user asks for broad `Nature` style rather than ML/NMI-specific style, read `references/nature-2026-observations.md` before choosing layout.
+- When the user references `figures4papers` or the older `scientific-figure-making` skill,
+  treat this skill as the successor and open `references/demos.md` for bundled Python demo scripts.
 
 ## When to load this skill
 
 - Python or R figures for **papers, slides, or reports** targeting Nature, Science, Cell, NeurIPS, ICLR, or similar venues.
 - Requests involving **grouped bars, trend lines, heatmaps, radar plots, multi-panel grids**, or **PDF/SVG/high-DPI** output.
-- Any mention of "Nature style", "publication figure", "paper figure", "SCI figure", "R plotting template", or "high-quality scientific plot".
+- Any mention of "Nature style", "publication figure", "paper figure", "SCI figure", "figures4papers", "scientific-figure-making", "R plotting template", or "high-quality scientific plot".
 - Requests to improve a figure's logic, aesthetics, panel layout, figure legend, export quality, or journal-readiness.
 
 ## When NOT to load
@@ -183,3 +185,4 @@ save_pub_r <- function(plot, filename, width_mm = 183, height_mm = 120, dpi = 60
 | [references/nature-2026-observations.md](references/nature-2026-observations.md) | Real `Nature` page archetypes: schematic-led composites, dark image plates, clinical triptychs, asymmetric hero layouts |
 | [references/tutorials.md](references/tutorials.md) | End-to-end walkthroughs: bars, trends, heatmaps |
 | [references/chart-types.md](references/chart-types.md) | Radar, 3D sphere, fill_between, scatter patterns |
+| [references/demos.md](references/demos.md) | Bundled figures4papers Python scripts and output previews for concrete pattern adaptation |

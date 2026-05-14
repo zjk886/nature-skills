@@ -29,12 +29,13 @@ Hello everyone, I’m Yuan Yizhe, a PhD student at Shanghai Jiao Tong University
 ## Installation
 
 `nature-skills` is a repository of reusable instruction bundles centred on `SKILL.md`.
-Each top-level `nature-*` directory is one installable unit. The exact installation method
-depends on which coding agent you use.
+Each `skills/nature-*` directory is one installable unit. Copy the whole folder, not
+only `SKILL.md`, because many skills depend on `references/`, assets, scripts, or
+README context.
 
 ### 1. Codex
 
-Codex can use these folders directly as local skills.
+Codex can use these folders directly as local skills. This is the simplest installation path.
 
 **Clone the repo**
 
@@ -47,14 +48,23 @@ cd nature-skills
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R nature-reader ~/.codex/skills/
+cp -R skills/nature-reader ~/.codex/skills/
 ```
 
 **Install all current skills**
 
 ```bash
 mkdir -p ~/.codex/skills
-for d in nature-*; do
+for d in skills/nature-*; do
+  cp -R "$d" ~/.codex/skills/
+done
+```
+
+**Update after pulling new changes**
+
+```bash
+git pull
+for d in skills/nature-*; do
   cp -R "$d" ~/.codex/skills/
 done
 ```
@@ -65,8 +75,9 @@ done
 - Then ask naturally, for example: `Translate this paper into a full markdown reader.` or
   `Make this paper into a Chinese journal-club PPT.`
 
-If you prefer not to use the terminal, copying the `nature-*` folder(s) into
-`~/.codex/skills/` manually works as well.
+If you prefer not to use the terminal, copying the `skills/nature-*` folder(s) into
+`~/.codex/skills/` manually works as well. For a longer walkthrough, see
+[`install.md`](install.md).
 
 ### 2. Claude Code
 
@@ -82,7 +93,7 @@ The recommended approach is to convert a skill into a **subagent**.
 
 ```bash
 mkdir -p ~/.claude/agents
-cp nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
+cp skills/nature-reader/SKILL.md ~/.claude/agents/nature-reader.md
 ```
 
 Then open `~/.claude/agents/nature-reader.md` and make sure the frontmatter is valid
@@ -116,7 +127,7 @@ If your agent supports reusable prompt files, system prompts, or agent profiles,
 portable unit is the skill directory itself:
 
 ```text
-nature-<topic>/
+skills/nature-<topic>/
 ├── README.md
 ├── SKILL.md
 └── references/...
@@ -137,7 +148,7 @@ In that case:
 
 | Skill | Status | Purpose | Trigger keywords |
 |-------|--------|---------|-----------------|
-| [`nature-figure`](skills/nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
+| [`nature-figure`](skills/nature-figure/README.md) | Stable | Nature/high-impact Python or R figure workflow with bundled figures4papers demos | "Nature figure", "publication plot", "scientific figure", "figures4papers" |
 | [`nature-polishing`](skills/nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
 | [`nature-writing`](skills/nature-writing/README.md) | Draft | Nature-style manuscript section drafting and argument restructuring | "Nature writing", "write abstract", "write introduction", "manuscript draft" |
 | [`nature-citation`](skills/nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
@@ -171,6 +182,9 @@ layouts.
 
 **Built from** — Production scripts from papers published in *Nature Machine Intelligence*
 and top ML/bioinformatics venues ([figures4papers](https://github.com/ChenLiu-1996/figures4papers)).
+The figures4papers demo scripts and preview assets are bundled inside
+`skills/nature-figure/assets/figures4papers/`, with a routing guide at
+`skills/nature-figure/references/demos.md`.
 
 **Key rules enforced**
 
@@ -194,7 +208,8 @@ skills/nature-figure/
     ├── design-theory.md  Typography, layout, export policy, anti-redundancy rules
     ├── common-patterns.md Ultra-wide panels, legend axes, print-safe bars
     ├── tutorials.md      End-to-end walkthroughs (bars, trends, heatmaps)
-    └── chart-types.md    Radar, 3D sphere, scatter, fill_between, log-scale
+    ├── chart-types.md    Radar, 3D sphere, scatter, fill_between, log-scale
+    └── demos.md          Bundled figures4papers scripts and preview routing
 ```
 
 **Supported chart types** — Stacked bar, grouped bar, horizontal ablation bar, trend/line,
@@ -487,7 +502,7 @@ To add a skill to this collection:
 
 **1. Create a directory**
 ```
-nature-<topic>/
+skills/nature-<topic>/
 ```
 
 **2. Minimum required files**
@@ -512,7 +527,7 @@ description: >-
 
 Add a row to the [Skill index](#skill-index) table above:
 ```markdown
-| [`nature-<topic>`](nature-<topic>/README.md) | Draft / Stable | One-line purpose | trigger keywords |
+| [`nature-<topic>`](skills/nature-<topic>/README.md) | Draft / Stable | One-line purpose | trigger keywords |
 ```
 
 **5. Status labels**
