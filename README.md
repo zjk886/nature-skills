@@ -156,6 +156,7 @@ In that case:
 | [`nature-reader`](skills/nature-reader/README.md) | Beta | Full-paper bilingual Markdown reader with source anchors and figure grounding | "nature reader", "full markdown", "paper md", "原文对照", "图文对应", "全文翻译" |
 | [`nature-response`](skills/nature-response/README.md) | Beta | Point-by-point reviewer response letters with comment triage, action mapping, and risk checks | "response to reviewers", "rebuttal letter", "major revision", "审稿意见回复" |
 | [`nature-paper2ppt`](skills/nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "paper to slides", "paper presentation" |
+| [`nature-academic-search`](skills/nature-academic-search/README.md) | Beta | Multi-source literature search, citation verification, and reference management | "search papers", "find articles", "academic search", "literature search", "verify DOI" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
 
