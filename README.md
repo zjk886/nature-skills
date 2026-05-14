@@ -150,6 +150,7 @@ In that case:
 |-------|--------|---------|-----------------|
 | [`nature-figure`](skills/nature-figure/README.md) | Stable | Nature/high-impact Python or R figure workflow with bundled figures4papers demos | "Nature figure", "publication plot", "scientific figure", "figures4papers" |
 | [`nature-polishing`](skills/nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
+| [`nature-writing`](skills/nature-writing/README.md) | Draft | Nature-style manuscript section drafting and argument restructuring | "Nature writing", "write abstract", "write introduction", "manuscript draft" |
 | [`nature-citation`](skills/nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
 | [`nature-data`](skills/nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "data availability statement" |
 | [`nature-reader`](skills/nature-reader/README.md) | Beta | Full-paper bilingual Markdown reader with source anchors and figure grounding | "nature reader", "full markdown", "paper md", "原文对照", "图文对应", "全文翻译" |
@@ -223,9 +224,9 @@ illustration, fill-between area, log-scale bar, GridSpec multi-panel.
 into prose matching *Nature* journal conventions: ≤ 30-word sentences, section-aware
 tense and hedging, precise vocabulary, correct citation practice, and British English.
 
-**Built from** — Close reading of five *Nature* s41586 papers (2026) and a graduate-level
-scientific English writing course; 25 rules extracted across sentence architecture,
-paper structure, vocabulary, citation integrity, house style, and AI ethics.
+**Built from** — A graduate-level scientific English writing course, Academic Phrasebank,
+and close reading of curated *Nature* and *Nature Communications* research articles
+across materials, energy systems, construction decarbonization and machine learning.
 
 **Key rules enforced**
 
@@ -249,7 +250,65 @@ Proofreading → Plain-text output
 ```
 skills/nature-polishing/
 ├── README.md
-└── SKILL.md    25 rules + 12-step workflow (loaded by Claude automatically)
+├── SKILL.md
+└── references/
+    ├── published-article-patterns.md
+    ├── phrasebank-playbook.md
+    ├── section-moves.md
+    ├── style-guardrails.md
+    └── writing-strategy.md
+```
+
+---
+
+## nature-writing
+
+**What it does** — Drafts or rebuilds manuscript sections from author-provided
+claims, results, figures, notes, or Chinese drafts. It is for argument construction:
+abstracts, introductions, Results narratives, Discussions, Conclusions, titles and
+full manuscript outlines, method sections, experiment sections and reviewer-facing
+self-review.
+
+**Built from** — Close reading of curated *Nature* and *Nature Communications*
+articles, especially how published papers move from field-scale stakes to a narrow
+gap, then to evidence, interpretation and bounded implication. It also integrates
+open research-writing notes for paragraph flow, section logic and adversarial
+paper review.
+
+**Key rules enforced**
+
+| Domain | Core rule |
+|--------|-----------|
+| Evidence first | Do not invent data, mechanisms, references, statistics, novelty or limitations |
+| Abstract | Context/problem → gap → approach → key result → implication → boundary |
+| Introduction | Field scale → bottleneck → prior attempts → unresolved gap → present study |
+| Method | Module motivation → module design → forward process → technical advantage |
+| Results | Build an evidence ladder, not a chronological lab diary |
+| Experiments | Tie claims to baselines, ablations, metrics, stress tests and readable tables |
+| Discussion | Explain meaning, relation to prior work, constraints and future use |
+| Review | Run claim-evidence and rejection-risk checks before submission |
+| Chinese notes | Translate intent and argument, not clause order |
+
+**Reference files**
+
+```
+skills/nature-writing/
+├── README.md
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+└── references/
+    ├── abstract.md
+    ├── article-architecture.md
+    ├── chinese-author-workflow.md
+    ├── conclusion.md
+    ├── experiments.md
+    ├── introduction.md
+    ├── method.md
+    ├── paper-review.md
+    ├── paragraph-flow.md
+    ├── related-work.md
+    └── examples/
 ```
 
 ---
