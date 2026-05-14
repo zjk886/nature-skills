@@ -17,10 +17,10 @@ Strategy reference for extracting citations from documents. Used by Workflow 2 (
 
 | Pattern | Target | Example |
 |---------|--------|---------|
-| `10\.\d{4,}/[^\s]+` | DOI | `10.1038/s41586-020-1234-5` |
+| `10\.\d{4,}/[^\s]+` | DOI | `10.1038/nature14539` |
 | `PMID:?\s*\d{7,8}` | PMID | `PMID: 28344011` |
 | `PMCID:?\s*PMC\d+` | PMCID | `PMCID: PMC5390525` |
-| `arXiv:\s*\d{4}\.\d{4,}(v\d+)?` | arXiv ID | `arXiv: 2301.12345v2` |
+| `arXiv:\s*\d{4}\.\d{4,}(v\d+)?` | arXiv ID | `arXiv: 1706.03762v7` |
 
 ### .tex / .bib
 

@@ -34,7 +34,11 @@ cp -r "${SCRIPT_DIR}/mcp-server/"* "${MCP_TARGET}/"
 # 3. Copy Skill
 echo "[3/5] Copying Skill..."
 mkdir -p "${SKILL_TARGET}"
-cp -r "${SCRIPT_DIR}/skill/"* "${SKILL_TARGET}/"
+cp "${SCRIPT_DIR}/README.md" "${SKILL_TARGET}/"
+cp "${SCRIPT_DIR}/SKILL.md" "${SKILL_TARGET}/"
+cp -r "${SCRIPT_DIR}/references" "${SKILL_TARGET}/"
+cp -r "${SCRIPT_DIR}/scripts" "${SKILL_TARGET}/"
+cp -r "${SCRIPT_DIR}/config" "${SKILL_TARGET}/"
 
 # 4. Merge .mcp.json
 echo "[4/5] Configuring .mcp.json..."

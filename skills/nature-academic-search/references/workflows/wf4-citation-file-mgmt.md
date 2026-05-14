@@ -13,10 +13,10 @@
    python scripts/format-converter.py --pmid 28344011 --format nbib
 
    # CrossRef
-   python scripts/format-converter.py --doi 10.1038/s41586-020-1234-5 --format ris
+   python scripts/format-converter.py --doi 10.1038/nature14539 --format ris
 
    # arXiv
-   python scripts/format-converter.py --arxiv 2301.12345 --format bib
+   python scripts/format-converter.py --arxiv 1706.03762 --format bib
 
    # Batch from file
    python scripts/format-converter.py --input refs.txt --format ris
@@ -30,8 +30,8 @@
 
 ```
 PMID:28344011
-DOI:10.1038/s41586-020-1234-5
-ARXIV:2301.12345
+DOI:10.1038/nature14539
+ARXIV:1706.03762
 QUERY:TB-Profiler AND Bioinformatics[Journal]
 AUTHOR:Dheda TITLE:drug-resistant tuberculosis
 # Lines starting with # are comments

@@ -481,6 +481,80 @@ skills/nature-paper2ppt/
 
 ---
 
+## nature-academic-search
+
+**What it does** — Provides a multi-source academic search and reference-management
+workflow backed by a local MCP server. It searches PubMed, CrossRef and arXiv in
+parallel, fetches records by DOI, PMID or arXiv ID, formats citations, looks up MeSH
+terms, verifies bibliographic identifiers, and supports `.nbib`, `.ris`, `.bib` and
+`.enw` reference-file workflows.
+
+**Built from** — A unified MCP server with source adapters for PubMed E-utilities,
+CrossRef REST metadata and arXiv Atom metadata, plus reusable workflow notes for
+source-tier routing, search strategy, citation parsing, deduplication, RIS/BibTeX
+field mapping and reference-file conversion.
+
+**Setup note** — For Claude Code MCP use, run
+`bash skills/nature-academic-search/install.sh your-email@example.com`, restart Claude Code,
+and optionally set `NCBI_API_KEY` for higher PubMed rate limits. For plain prompt use,
+copy the whole `skills/nature-academic-search/` directory like the other skills.
+
+**Key rules enforced**
+
+| Domain | Core rule |
+|--------|-----------|
+| Source routing | Start with structured API-backed sources: PubMed for biomedical searches, CrossRef for DOI and cross-disciplinary metadata, and arXiv for preprints |
+| Fallback discipline | Escalate from T1 sources to limited APIs or scraped/manual sources only when needed, and warn when results may be incomplete |
+| Deduplication | Merge multi-source hits by DOI, PMID, arXiv ID and normalized title rather than counting duplicate records as separate evidence |
+| Citation verification | Resolve DOI, PMID and arXiv IDs before citation formatting; expose missing or failed metadata instead of filling fields by guesswork |
+| MeSH strategy | Use MeSH lookup for biomedical PubMed queries when the task needs recall, controlled vocabulary or systematic search structure |
+| File integrity | Preserve bibliographic fields when converting `.nbib`, `.ris`, `.bib` and `.enw`; do not fabricate volume, issue, pages, DOI or PMID values |
+
+**MCP tools**
+
+| Tool | Purpose |
+|------|---------|
+| `search_papers` | Search CrossRef, PubMed and arXiv with optional source selection and per-source result limits |
+| `get_paper_by_id` | Fetch paper metadata by DOI, PMID or arXiv ID with automatic ID-type detection |
+| `get_citation` | Generate formatted citations in styles such as APA, Nature, IEEE, Vancouver, Chicago and MLA |
+| `lookup_mesh` | Query PubMed MeSH descriptors for biomedical search-term expansion |
+
+**Reference files**
+
+```text
+skills/nature-academic-search/
+├── README.md
+├── SKILL.md
+├── install.sh
+├── config/
+│   ├── mcp-snippet.json
+│   ├── settings-snippet.json
+│   └── triggers-academic-search.toml
+├── mcp-server/
+│   ├── academic_search_server.py
+│   ├── sources/
+│   ├── tests/
+│   └── utils/
+├── references/
+│   ├── citation-parser.md
+│   ├── dedup-engine.md
+│   ├── ris-bibtex-format.md
+│   ├── search-strategy.md
+│   ├── source-tiers.md
+│   └── workflows/
+└── scripts/
+    ├── converters.py
+    ├── format-converter.py
+    └── preflight.py
+```
+
+**Example workflow** — Search the same topic across PubMed, CrossRef and arXiv, merge
+and deduplicate candidate papers, verify key identifiers, look up MeSH terms for the
+biomedical subset, then export or convert the selected references for Zotero, EndNote
+or BibTeX.
+
+---
+
 ## Shared design principles
 
 All skills in this collection adhere to the following:

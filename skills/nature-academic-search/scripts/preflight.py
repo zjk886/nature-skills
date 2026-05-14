@@ -24,14 +24,14 @@ ENDPOINTS = [
     },
     {
         "name": "CrossRef REST",
-        "url": "https://api.crossref.org/works/10.1038/s41586-020-1234-5",
+        "url": "https://api.crossref.org/works/10.1038/nature14539",
         "timeout": 10,
         "affected": "CrossRef/DOI downloads in format-converter",
         "expect_status": 200,
     },
     {
-        "name": "arXiv OAI-PMH",
-        "url": "https://export.arxiv.org/api/query?id_list=2301.12345&max_results=1",
+        "name": "arXiv API",
+        "url": "https://export.arxiv.org/api/query?id_list=1706.03762&max_results=1",
         "timeout": 10,
         "affected": "arXiv downloads in format-converter (MCP search_arxiv unaffected)",
     },

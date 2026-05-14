@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 Multi-source citation downloader with format conversion.
-Sources: PubMed (NCBI E-utilities), CrossRef (REST API), arXiv (OAI-PMH API).
+Sources: PubMed (NCBI E-utilities), CrossRef (REST API), arXiv (Atom API).
 Outputs: .nbib (PubMed only), .ris, .bib, .enw.
 
 Usage:
   python format-converter.py --pmid 28344011
   python format-converter.py --pmid 28344011,10645439 --format ris
-  python format-converter.py --doi 10.1038/s41586-020-1234-5 --format bib
-  python format-converter.py --arxiv 2301.12345 --format ris
+  python format-converter.py --doi 10.1038/nature14539 --format bib
+  python format-converter.py --arxiv 1706.03762 --format ris
   python format-converter.py --query "TB-Profiler AND Bioinformatics[Journal]"
   python format-converter.py --input refs.txt
   python format-converter.py --input refs.txt --format ris
@@ -16,8 +16,8 @@ Usage:
 
 refs.txt format:
   PMID:28344011
-  DOI:10.1038/s41586-020-1234-5
-  ARXIV:2301.12345
+  DOI:10.1038/nature14539
+  ARXIV:1706.03762
   QUERY:TB-Profiler AND Bioinformatics[Journal]
   AUTHOR:Dheda TITLE:drug-resistant tuberculosis
   # Lines starting with # are comments
@@ -328,7 +328,7 @@ def self_test():
         print(f"  [FAIL] PubMed endpoint: {e}")
 
     # 3. CrossRef endpoint (known DOI)
-    doi = "10.1038/s41586-020-1234-5"
+    doi = "10.1038/nature14539"
     print(f"  Testing CrossRef (DOI {doi})...")
     try:
         from urllib.request import urlopen
@@ -359,10 +359,10 @@ def main():
 Examples:
   %(prog)s --pmid 28344011
   %(prog)s --pmid 28344011,10645439 --format ris
-  %(prog)s --doi 10.1038/s41586-020-1234-5 --format bib
-  %(prog)s --doi 10.1038/s41586-020-1234-5,10.1126/science.abc1234 --format ris
-  %(prog)s --arxiv 2301.12345 --format bib
-  %(prog)s --arxiv 2301.12345,2302.56789 --format ris
+  %(prog)s --doi 10.1038/nature14539 --format bib
+  %(prog)s --doi 10.1038/nature14539,10.1038/s41586-020-2649-2 --format ris
+  %(prog)s --arxiv 1706.03762 --format bib
+  %(prog)s --arxiv 1706.03762,2302.13971 --format ris
   %(prog)s --query "TB-Profiler AND Bioinformatics[Journal]"
   %(prog)s --input refs.txt
   %(prog)s --input refs.txt --format ris
@@ -370,8 +370,8 @@ Examples:
 
 refs.txt format:
   PMID:28344011
-  DOI:10.1038/s41586-020-1234-5
-  ARXIV:2301.12345
+  DOI:10.1038/nature14539
+  ARXIV:1706.03762
   QUERY:TB-Profiler AND Bioinformatics[Journal]
   AUTHOR:Dheda TITLE:drug-resistant tuberculosis
   # Lines starting with # are comments
