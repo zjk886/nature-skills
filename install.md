@@ -34,6 +34,7 @@ skills/nature-<topic>/
 Examples in this repository:
 
 - `nature-polishing`
+- `nature-writing`
 - `nature-figure`
 - `nature-citation`
 - `nature-data`
